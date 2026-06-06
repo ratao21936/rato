@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Meu Site no GitHub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rato</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Olá, mundo!</h1>
-    <p>Este é meu primeiro site hospedado no GitHub Pages.</p>
+
+<video id="bgVideo" class="bg-video" autoplay muted loop playsinline></video>
+<div class="overlay"></div>
+
+<main>
+<img id="avatar" class="avatar">
+
+<h1 id="name"></h1>
+<p id="subtitle"></p>
+
+<section>
+<h3>SOBRE</h3>
+<p id="about" class="quote"></p>
+<div id="tags" class="tags"></div>
+</section>
+
+<section>
+<h3>LINKS</h3>
+<div id="links"></div>
+</section>
+
+<section>
+<h3>MÚSICA</h3>
+<div id="spotify"></div>
+</section>
+
+</main>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
