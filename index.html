@@ -1,42 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rato</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-<video id="bgVideo" class="bg-video" autoplay muted loop playsinline></video>
-<div class="overlay"></div>
-
-<main>
-<img id="avatar" class="avatar">
-
-<h1 id="name"></h1>
-<p id="subtitle"></p>
-
-<section>
-<h3>SOBRE</h3>
-<p id="about" class="quote"></p>
-<div id="tags" class="tags"></div>
-</section>
-
-<section>
-<h3>LINKS</h3>
-<div id="links"></div>
-</section>
-
-<section>
-<h3>MÚSICA</h3>
-<div id="spotify"></div>
-</section>
-
-</main>
-
-<script src="config.js"></script>
-<script src="script.js"></script>
-
-</body>
-</html>
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Rato | Bio</title><link rel="stylesheet" href="style.css"></head><body>
+<div class="video-bg"><video autoplay muted loop playsinline><source src="https://files.catbox.moe/3xm2ia.mp4" type="video/mp4"></video></div>
+<div class="profile"><img class="banner" src="https://i.imgur.com/seubanner.png"><img class="avatar" src="https://i.imgur.com/seuavatar.png"><h1>Rato</h1><p>BRASIL • PROGRAMADOR</p>
+<div class="card"><h3>SOBRE</h3><p>Construindo coisas e deixando minha marca.</p><span>Brasil</span><span>Developer</span><span>Ele/Dele</span></div>
+<div class="card"><h3>LINKS</h3><a href="#">Discord</a><a href="#">Roblox</a><a href="#">TikTok</a><a href="#">GitHub</a></div>
+<div class="card"><h3>MÚSICAS</h3><div class="music"><img id="cover"><div><b id="title"></b><p id="artist"></p></div></div><button onclick="play()">Play</button><button onclick="next()">Próxima →</button><audio id="audio"></audio></div>
+</div><script src="script.js"></script></body></html>
