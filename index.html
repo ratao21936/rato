@@ -45,7 +45,6 @@
       position: relative;
     }
 
-    /* Folhas caindo */
     .leaves-container {
       position: fixed;
       top: 0;
@@ -192,9 +191,9 @@
       object-fit: cover;
       object-position: center 35%;
       display: block;
-      will-change: transform; /* Aceleração GPU */
-      transform: translateZ(0); /* Força aceleração GPU */
-      -webkit-backface-visibility: hidden; /* Melhora performance */
+      will-change: transform;
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
     }
     .avatar-wrapper {
@@ -237,21 +236,46 @@
     }
     .status-dot {
       position: absolute; bottom: 6px; right: 6px;
-      width: 14px; height: 14px; border-radius: 50%;
-      background: #43b581;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #23a55a;
       border: 2.5px solid var(--bg);
       transition: background 0.4s;
       z-index: 6;
     }
     .profile-name {
       font-family: var(--serif);
-      font-size: 30px; font-weight: 400; font-style: italic;
-      color: var(--b); letter-spacing: -0.5px;
+      font-size: 28px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--b);
+      letter-spacing: -0.5px;
       margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .profile-tag {
+      display: inline-block;
+      background: rgba(96,165,250,0.2);
+      border: 1px solid var(--accent);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-style: normal;
     }
     .profile-sub {
-      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--td); margin-top: -4px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--td);
+      margin-top: 4px;
     }
     
     .profile-thinking {
@@ -338,8 +362,59 @@
       padding: 4px 11px; border-radius: 99px;
     }
 
+    /* Ouvindo agora - Spotify */
+    .now-playing {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 8px 0;
+    }
+    .now-playing-cover {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+    .now-playing-info {
+      flex: 1;
+    }
+    .now-playing-label {
+      font-size: 10px;
+      color: var(--spotify-green);
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .now-playing-label img {
+      width: 14px;
+      height: 14px;
+      vertical-align: middle;
+    }
+    .now-playing-song {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-style: italic;
+      color: var(--b);
+      margin-bottom: 4px;
+    }
+    .now-playing-artist {
+      font-size: 11px;
+      color: var(--td);
+    }
+    .no-music {
+      text-align: center;
+      padding: 20px;
+      color: var(--td);
+      font-size: 12px;
+    }
+
     .lnk {
-      display: flex; align-items: center; gap: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
       padding: 12px 4px;
       text-decoration: none; color: var(--t);
       border-bottom: 1px solid var(--border);
@@ -626,8 +701,11 @@
           </div>
         </div>
       </div>
-      <div class="profile-name" id="profile-name">Rato</div>
-      <div class="profile-sub" id="profile-sub">Brasil • Programador</div>
+      <div class="profile-name" id="profile-name">
+        <span id="profile-display-name">! Rato</span>
+        <span class="profile-tag" id="profile-tag">Dev</span>
+      </div>
+      <div class="profile-sub">Brasil • Programador</div>
       <div class="profile-thinking" id="discord-thinking">
         <span class="thinking-icon">💭</span>
         <span class="thinking-text" id="thinking-text">Carregando...</span>
@@ -642,6 +720,17 @@
       <span class="pill">Brasil</span>
       <span class="pill">Ele/Dele</span>
       <span class="pill">Programador</span>
+    </div>
+  </div>
+
+  <!-- Ouvindo agora - Spotify (substituindo as atividades) -->
+  <div class="card reveal" style="transition-delay:.09s">
+    <div class="section-label">
+      <img src="https://cdn.discordapp.com/emojis/1513038422367797269.png" alt="Spotify">
+      Ouvindo agora
+    </div>
+    <div id="now-playing-container">
+      <div class="no-music">Nenhuma música tocando no momento</div>
     </div>
   </div>
 
@@ -702,7 +791,7 @@
     </div>
   </div>
 
-  <div class="card reveal" style="transition-delay:.18s">
+  <div class="card reveal" style="transition-delay:.15s">
     <div class="section-label"><img src="https://cdn.discordapp.com/emojis/1513038422367797269.png" alt="Spotify"> Player</div>
     <div class="player">
       <div class="player-track">
@@ -728,7 +817,7 @@
     </div>
   </div>
 
-  <div class="card reveal" style="transition-delay:.21s">
+  <div class="card reveal" style="transition-delay:.18s">
     <div class="section-label"><img src="https://cdn.discordapp.com/emojis/1513038422367797269.png" alt="Spotify"> Spotify Playlist</div>
     <div class="spotify-embed">
       <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E8Q1Zs7959UmL?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -743,7 +832,7 @@
     </div>
   </div>
 
-  <div class="foot reveal" style="transition-delay:.24s">
+  <div class="foot reveal" style="transition-delay:.21s">
     <span>Feito por Rato</span>
     <span id="last-updated"></span>
   </div>
@@ -755,7 +844,7 @@
 (function () {
   const DISCORD_USER_ID = "1231281182948196430";
   const LEAF_EMOJI_URL = "https://cdn.discordapp.com/emojis/1510721354834514110.png";
-  const THINKING_EMOJI_URL = "https://cdn.discordapp.com/emojis/1513040672985452584.png";
+  const SPOTIFY_EMOJI_URL = "https://cdn.discordapp.com/emojis/1513038422367797269.png";
   
   const gate = document.getElementById('gate');
   const wrap = document.getElementById('wrap');
@@ -770,7 +859,6 @@
   if (bannerVideo) {
     bannerVideo.muted = true;
     bannerVideo.volume = 0;
-    // Tenta dar play, se falhar ignora (autoplay pode ser bloqueado)
     bannerVideo.play().catch(() => {});
   }
   
@@ -844,7 +932,7 @@
     setTimeout(createLeaf, i * 300);
   }
 
-  /* Firebase - Conta TODAS as visualizações */
+  /* Firebase */
   try {
     const firebaseConfig = {
       apiKey: "AIzaSyAbctCi7FEjZqDxJxiW7Ru4ddi396dtmZ0",
@@ -861,11 +949,8 @@
     }
     
     const ref = firebase.database().ref('contador');
-    
-    // SEMPRE conta uma visualização (cada recarregada conta)
     ref.transaction(c => (c || 0) + 1);
     
-    // Mostrar contagem atual com formatação 1.354k
     ref.on('value', snap => {
       const el = document.getElementById('view-count');
       if (el) { 
@@ -883,6 +968,18 @@
     console.warn("Firebase error:", e);
   }
 
+  function formatTimeAgo(timestamp) {
+    if (!timestamp) return '';
+    const now = Date.now();
+    const diff = now - timestamp;
+    const seconds = Math.floor(diff / 1000);
+    if (seconds < 60) return `${seconds}s`;
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m`;
+    const hours = Math.floor(minutes / 60);
+    return `${hours}h`;
+  }
+
   /* Buscar dados do Discord */
   function fetchDiscordData() {
     fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`)
@@ -893,11 +990,9 @@
         const userData = response.data.discord_user;
         const status = response.data.discord_status;
         const activities = response.data.activities || [];
+        const spotify = response.data.spotify;
         
-        const customStatus = activities.find(a => a.type === 4);
-        
-        if (!userData) return;
-        
+        // Avatar
         const avatarImg = document.getElementById('profile-avatar');
         if (avatarImg && userData.avatar) {
           const isGif = userData.avatar.startsWith('a_');
@@ -905,27 +1000,32 @@
           avatarImg.src = avatarUrl;
         }
         
+        // Status dot
         const dot = document.getElementById('discord-dot');
         if (dot && status) {
-          const colors = { online:'#43b581', dnd:'#f04747', idle:'#faa61a', offline:'#747f8d' };
-          dot.style.background = colors[status] || '#747f8d';
+          const colors = { online: '#23a55a', dnd: '#f23f42', idle: '#f0b232', offline: '#80848e' };
+          dot.style.background = colors[status] || '#80848e';
         }
         
-        const nameEl = document.getElementById('profile-name');
-        if (nameEl) {
-          if (userData.global_name) {
-            nameEl.textContent = userData.global_name;
-          } else if (userData.username) {
-            nameEl.textContent = userData.username;
-          }
+        // Nome e Tag
+        const displayNameEl = document.getElementById('profile-display-name');
+        const tagEl = document.getElementById('profile-tag');
+        
+        if (displayNameEl) {
+          displayNameEl.textContent = userData.global_name || userData.username || "Rato";
         }
         
-        if (userData.global_name) {
-          document.title = `${userData.global_name} | Bio`;
-        } else if (userData.username) {
-          document.title = `${userData.username} | Bio`;
+        if (tagEl && userData.primary_guild && userData.primary_guild.tag) {
+          tagEl.textContent = userData.primary_guild.tag;
+          tagEl.style.display = 'inline-block';
+        } else if (tagEl) {
+          tagEl.style.display = 'none';
         }
         
+        document.title = `${userData.global_name || userData.username || "Rato"} | Bio`;
+        
+        // Custom Status (pensamento)
+        const customStatus = activities.find(a => a.type === 4);
         const thinkingTextEl = document.getElementById('thinking-text');
         if (thinkingTextEl) {
           if (customStatus && customStatus.state) {
@@ -940,15 +1040,71 @@
             }
             thinkingTextEl.innerHTML = `${emojiHtml} <span>${customStatus.state}</span>`;
           } else {
-            thinkingTextEl.innerHTML = `<img src="${THINKING_EMOJI_URL}" class="thinking-emoji" alt="pensando"> <span>Nada no momento...</span>`;
+            thinkingTextEl.innerHTML = `<span>Nada no momento</span>`;
+          }
+        }
+        
+        // Ouvindo agora - Spotify
+        const nowPlayingContainer = document.getElementById('now-playing-container');
+        if (nowPlayingContainer) {
+          if (spotify && spotify.song) {
+            let timeLeft = '';
+            if (spotify.timestamps && spotify.timestamps.end) {
+              const now = Date.now();
+              const end = spotify.timestamps.end;
+              if (end > now) {
+                const leftMs = end - now;
+                const leftSec = Math.floor(leftMs / 1000);
+                const leftMin = Math.floor(leftSec / 60);
+                const leftSecRem = leftSec % 60;
+                timeLeft = `${leftMin}:${leftSecRem.toString().padStart(2, '0')}`;
+              }
+            }
+            
+            nowPlayingContainer.innerHTML = `
+              <div class="now-playing">
+                <img class="now-playing-cover" src="${spotify.album_art_url}" alt="Capa do álbum" onerror="this.src='https://cdn.discordapp.com/emojis/1513038422367797269.png'">
+                <div class="now-playing-info">
+                  <div class="now-playing-label">
+                    <img src="${SPOTIFY_EMOJI_URL}" alt="Spotify">
+                    OUVINDO NO SPOTIFY
+                  </div>
+                  <div class="now-playing-song">${escapeHtml(spotify.song)}</div>
+                  <div class="now-playing-artist">${escapeHtml(spotify.artist)}</div>
+                </div>
+                ${timeLeft ? `<div class="now-playing-time">${timeLeft}</div>` : ''}
+              </div>
+            `;
+          } else {
+            nowPlayingContainer.innerHTML = '<div class="no-music">Nenhuma música tocando no momento</div>';
           }
         }
       })
-      .catch(err => console.warn("Lanyard API error:", err));
+      .catch(err => {
+        console.warn("Lanyard API error:", err);
+        const nowPlayingContainer = document.getElementById('now-playing-container');
+        if (nowPlayingContainer) {
+          nowPlayingContainer.innerHTML = '<div class="no-music">Erro ao carregar música</div>';
+        }
+        const thinkingTextEl = document.getElementById('thinking-text');
+        if (thinkingTextEl) {
+          thinkingTextEl.innerHTML = `<span>Erro ao carregar</span>`;
+        }
+      });
+  }
+  
+  function escapeHtml(text) {
+    if (!text) return '';
+    return text.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
   }
   
   fetchDiscordData();
-  setInterval(fetchDiscordData, 30000);
+  setInterval(fetchDiscordData, 15000);
 
   /* Music Player */
   const tracks = [
