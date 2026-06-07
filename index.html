@@ -669,15 +669,17 @@
 
   /* Firebase */
   try {
-    const firebaseConfig = {
-      apiKey: "AIzaSyAbctCi7FEjZqDxJxiW7Ru4ddi396dtmZ0",
-      authDomain: "bio-rato.firebaseapp.com",
-      projectId: "bio-rato",
-      storageBucket: "bio-rato.firebasestorage.app",
-      messagingSenderId: "208785987108",
-      appId: "1:208785987108:web:76608642c207bb86dceab1",
-      measurementId: "G-REJ4J8B2RP"
-    };
+   const firebaseConfig = {
+  apiKey: "AIzaSyAbctCi7FEjZqDxJxiW7Ru4ddi396dtmZ0",
+  authDomain: "bio-rato.firebaseapp.com",
+  databaseURL: "https://bio-rato-default-rtdb.firebaseio.com",
+  projectId: "bio-rato",
+  storageBucket: "bio-rato.firebasestorage.app",
+  messagingSenderId: "208785987108",
+  appId: "1:208785987108:web:76608642c207bb86dceab1",
+  measurementId: "G-REJ4J8B2RP"
+};
+
     
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
