@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   
-  <!-- Favicon com o emoji de folha -->
   <link rel="icon" type="image/png" href="https://cdn.discordapp.com/emojis/1510721354834514110.png">
   <link rel="shortcut icon" href="https://cdn.discordapp.com/emojis/1510721354834514110.png">
   
@@ -68,14 +67,8 @@
       animation: fall linear infinite;
     }
     @keyframes fall {
-      0% {
-        transform: translateY(-20px) rotate(0deg);
-        opacity: 0.7;
-      }
-      100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0.2;
-      }
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 0.7; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.2; }
     }
 
     .video-bg {
@@ -193,12 +186,13 @@
       overflow: hidden;
       border: 1px solid var(--border-bright);
     }
-    .profile-banner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .profile-banner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  display: block;
+}
     .avatar-wrapper {
       position: absolute;
       bottom: -40px;
@@ -310,7 +304,6 @@
       align-items: center;
       gap: 8px;
     }
-    /* Corrigindo o tamanho dos emojis dentro do section-label */
     .section-label img {
       width: 16px;
       height: 16px;
@@ -539,7 +532,6 @@
       margin-top: 5px;
     }
 
-    /* Spotify Profile Link */
     .spotify-profile {
       margin-top: 15px;
       padding-top: 12px;
@@ -618,7 +610,9 @@
     <div class="profile">
       <div class="banner-container">
         <div class="profile-banner">
-          <img id="banner-img" src="https://images-ext-1.discordapp.net/external/4oiXwl198-zYBDWirjP9L5s8XneTvbg5rYovXfvkJxQ/%3Fanimated%3Dtrue%26size%3D512/https/cdn.discordapp.com/banners/1231281182948196430/a_23419ffa601f82e4f7475d34a79d9cbb.webp?animated=true&width=300&height=106" alt="banner" style="width:100%; height:100%; object-fit:cover;">
+          <video id="banner-video" autoplay loop muted playsinline>
+            <source src="https://files.catbox.moe/hu9xff.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="avatar-wrapper">
           <div class="avatar-wrap">
@@ -732,7 +726,6 @@
       <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1E8Q1Zs7959UmL?utm_source=generator&theme=0" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
     
-    <!-- Meu perfil do Spotify -->
     <div class="spotify-profile">
       <a href="https://open.spotify.com/user/31j2fkrmrvfsnolxfnntwxxutbge" target="_blank" class="spotify-profile-link">
         <img src="https://cdn.discordapp.com/emojis/1513038422367797269.png" alt="Spotify">
@@ -759,10 +752,17 @@
   const gate = document.getElementById('gate');
   const wrap = document.getElementById('wrap');
   const bgVideo = document.getElementById('bg-video');
+  const bannerVideo = document.getElementById('banner-video');
   
   if (bgVideo) {
     bgVideo.muted = true;
     bgVideo.volume = 0;
+  }
+  
+  if (bannerVideo) {
+    bannerVideo.muted = true;
+    bannerVideo.volume = 0;
+    bannerVideo.play().catch(()=>{});
   }
   
   function openSite() {
@@ -835,7 +835,7 @@
     setTimeout(createLeaf, i * 300);
   }
 
-  /* Firebase */
+  /* Firebase - Conta TODAS as visualizações (sem limite por IP) */
   try {
     const firebaseConfig = {
       apiKey: "AIzaSyAbctCi7FEjZqDxJxiW7Ru4ddi396dtmZ0",
@@ -853,13 +853,16 @@
     
     const ref = firebase.database().ref('contador');
     
-    if (!localStorage.getItem('view')) {
-      ref.transaction(c => (c || 0) + 1);
-      localStorage.setItem('view', 'true');
-    }
+    // SEMPRE conta uma visualização (cada recarregada conta)
+    ref.transaction(c => (c || 0) + 1);
+    
+    // Mostrar contagem atual
     ref.on('value', snap => {
       const el = document.getElementById('view-count');
-      if (el) { let v = snap.val() || 0; el.textContent = v >= 1000 ? (v/1000).toFixed(1)+'k' : v; }
+      if (el) { 
+        let v = snap.val() || 0; 
+        el.textContent = v >= 1000 ? (v/1000).toFixed(1) + 'k' : v; 
+      }
     });
   } catch(e) {
     console.warn("Firebase error:", e);
