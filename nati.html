@@ -38,7 +38,7 @@
       background: radial-gradient(ellipse 70% 50% at 50% 50%, rgba(20,0,0,0) 0%, rgba(5,3,4,0.8) 100%);
     }
 
-    /* ===== FRASES CAINDO (xingamentos) ===== */
+    /* ===== FRASES CAINDO (xingamentos reais) ===== */
     .phrases-container {
       position: fixed;
       top: 0;
@@ -55,7 +55,7 @@
       font-family: 'Arial Black', 'Impact', sans-serif;
       font-weight: 900;
       font-size: 22px;
-      color: rgba(255, 50, 50, 0.7);
+      color: rgba(255, 50, 50, 0.8);
       text-shadow: 0 0 15px rgba(255, 0, 0, 0.3), 0 0 30px rgba(255, 0, 0, 0.1);
       white-space: nowrap;
       pointer-events: none;
@@ -65,19 +65,19 @@
       letter-spacing: 1px;
     }
     .falling-phrase:nth-child(odd) {
-      color: rgba(255, 215, 0, 0.6);
+      color: rgba(255, 215, 0, 0.7);
       text-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
       transform: rotate(3deg);
       font-size: 20px;
     }
     .falling-phrase:nth-child(3n) {
-      color: rgba(255, 100, 200, 0.6);
+      color: rgba(255, 100, 200, 0.7);
       text-shadow: 0 0 15px rgba(255, 100, 200, 0.3);
       transform: rotate(-8deg);
       font-size: 24px;
     }
     .falling-phrase:nth-child(5n) {
-      color: rgba(0, 200, 255, 0.5);
+      color: rgba(0, 200, 255, 0.6);
       text-shadow: 0 0 15px rgba(0, 200, 255, 0.2);
       transform: rotate(5deg);
       font-size: 18px;
@@ -100,7 +100,7 @@
       }
     }
 
-    /* ===== FOGUINHO CAINDO NO GATE ===== */
+    /* ===== FOGUINHO CAINDO NO GATE (usando a imagem) ===== */
     .gate-fire {
       position: fixed;
       top: 0;
@@ -114,7 +114,12 @@
     .gate-fire-particle {
       position: absolute;
       top: -30px;
-      font-size: 30px;
+      width: 40px;
+      height: 40px;
+      background-image: url('https://cdn.discordapp.com/emojis/1515801969715839169.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       animation: fallGateFire linear infinite;
       opacity: 0.8;
     }
@@ -223,7 +228,12 @@
       pointer-events: none;
     }
     .gate-symbol {
-      font-size: 80px;
+      width: 80px;
+      height: 80px;
+      background-image: url('https://cdn.discordapp.com/emojis/1515801969715839169.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       animation: pulseGate 2.5s ease-in-out infinite;
     }
     .gate-hint {
@@ -293,7 +303,12 @@
         font-size: 24px;
       }
       .gate-symbol {
-        font-size: 60px;
+        width: 60px;
+        height: 60px;
+      }
+      .gate-fire-particle {
+        width: 30px;
+        height: 30px;
       }
       .falling-phrase {
         font-size: 16px !important;
@@ -308,6 +323,14 @@
         gap: 15px;
         padding: 10px;
       }
+      .gate-symbol {
+        width: 50px;
+        height: 50px;
+      }
+      .gate-fire-particle {
+        width: 25px;
+        height: 25px;
+      }
       .falling-phrase {
         font-size: 14px !important;
       }
@@ -316,7 +339,7 @@
 </head>
 <body>
 
-<!-- ===== VÍDEO DE FUNDO ===== -->
+<!-- ===== VÍDEO DE FUNDO (NOVO) ===== -->
 <div class="video-bg">
   <video id="bg-video" autoplay loop muted playsinline preload="auto">
     <source src="https://files.catbox.moe/dinkrl.mp4" type="video/mp4">
@@ -353,7 +376,7 @@
 
 <!-- ===== GATE DE ENTRADA ===== -->
 <div class="gate" id="gate">
-  <div class="gate-symbol">🔥</div>
+  <div class="gate-symbol"></div>
   <div class="gate-name">Natasha</div>
   <div class="gate-hint">✦ Clique para entrar ✦</div>
 </div>
@@ -370,61 +393,61 @@
     const phrasesContainer = document.getElementById('phrases-container');
     const gateFire = document.getElementById('gate-fire');
 
-    // ===== LISTA DE XINGAMENTOS =====
+    // ===== LISTA DE XINGAMENTOS REAIS =====
     const insults = [
-  "VAI TOMAR NO CU",
-  "FILHA DA PUTA",
-  "CARA DE CU",
-  "BOCA DE BUEIRO",
-  "RATINHA DE MERDA",
-  "FEIA QUE DÓI",
-  "SEM VERGONHA NA CARA",
-  "OTÁRIA",
-  "BURRA PRA CARALHO",
-  "INÚTIL",
-  "MALA SEM ALÇA",
-  "SANGUESSUGA",
-  "ARROMBADA",
-  "CORNONA",
-  "PIRANHA",
-  "VAGABUNDA",
-  "DESGRAÇADA",
-  "MALDITA",
-  "PARASITA",
-  "CHATA PRA PORRA",
-  "TROUXA",
-  "CABEÇA DE BACALHAU",
-  "MULA",
-  "ANTA",
-  "PORCA",
-  "JABUTI",
-  "TARTARUGA",
-  "LARANJA PODRE",
-  "FOLGADA",
-  "DESLUMBRADA",
-  "METIDA A BESTA",
-  "ACHADA DEMAIS",
-  "SEM SAL",
-  "MIMADA",
-  "EGOCÊNTRICA PRA CARALHO",
-  "NARCISISTA",
-  "PATETA",
-  "PALHAÇA",
-  "RIDÍCULA",
-  "CAISSA",
-  "BOÇAL",
-  "ANALFABETA",
-  "DODÓI DA CABEÇA",
-  "CHORONA",
-  "FRESCURA",
-  "PREGUIÇOSA",
-  "DESATENCIOSA",
-  "MALUCA VARIADA",
-  "DOIDA",
-  "SURTADA",
-  "TENSA",
-  "LIXO"
-];
+      "VAI TOMAR NO CU",
+      "FILHA DA PUTA",
+      "CARA DE CU",
+      "BOCA DE BUEIRO",
+      "RATINHA DE MERDA",
+      "FEIA QUE DÓI",
+      "SEM VERGONHA NA CARA",
+      "OTÁRIA",
+      "BURRA PRA CARALHO",
+      "INÚTIL",
+      "MALA SEM ALÇA",
+      "SANGUESSUGA",
+      "ARROMBADA",
+      "CORNONA",
+      "PIRANHA",
+      "VAGABUNDA",
+      "DESGRAÇADA",
+      "MALDITA",
+      "PARASITA",
+      "CHATA PRA PORRA",
+      "TROUXA",
+      "CABEÇA DE BACALHAU",
+      "MULA",
+      "ANTA",
+      "PORCA",
+      "JABUTI",
+      "TARTARUGA",
+      "LARANJA PODRE",
+      "FOLGADA",
+      "DESLUMBRADA",
+      "METIDA A BESTA",
+      "ACHADA DEMAIS",
+      "SEM SAL",
+      "MIMADA",
+      "EGOCÊNTRICA PRA CARALHO",
+      "NARCISISTA",
+      "PATETA",
+      "PALHAÇA",
+      "RIDÍCULA",
+      "CAISSA",
+      "BOÇAL",
+      "ANALFABETA",
+      "DODÓI DA CABEÇA",
+      "CHORONA",
+      "FRESCURA",
+      "PREGUIÇOSA",
+      "DESATENCIOSA",
+      "MALUCA VARIADA",
+      "DOIDA",
+      "SURTADA",
+      "TENSA",
+      "LIXO"
+    ];
 
     // ===== FRASES CAINDO =====
     const isMobile = window.innerWidth < 600;
@@ -435,26 +458,20 @@
       const phrase = document.createElement('div');
       phrase.classList.add('falling-phrase');
       
-      // Escolher xingamento aleatório
       const randomInsult = insults[Math.floor(Math.random() * insults.length)];
       phrase.textContent = randomInsult;
       
-      // Posição horizontal aleatória
       phrase.style.left = Math.random() * 100 + '%';
       
-      // Tamanho aleatório
       const sizeVariation = isMobile ? 14 : 22;
       const randomSize = Math.floor(Math.random() * 10) + sizeVariation;
       phrase.style.fontSize = randomSize + 'px';
       
-      // Duração da animação
       const duration = Math.random() * (isMobile ? 10 : 7) + (isMobile ? 6 : 4);
       phrase.style.animationDuration = duration + 's';
       
-      // Delay aleatório
       phrase.style.animationDelay = Math.random() * 5 + 's';
       
-      // Rotação aleatória
       const rotation = (Math.random() - 0.5) * 15;
       phrase.style.transform = `rotate(${rotation}deg)`;
       
@@ -468,7 +485,6 @@
     function startPhrases() {
       if (phraseInterval) clearInterval(phraseInterval);
       phraseInterval = setInterval(createFallingPhrase, isMobile ? 2500 : 1200);
-      // Criar algumas frases iniciais
       for (let i = 0; i < (isMobile ? 6 : 12); i++) {
         setTimeout(createFallingPhrase, i * (isMobile ? 400 : 200));
       }
@@ -481,18 +497,15 @@
       if (!gateFire) return;
       const fire = document.createElement('div');
       fire.classList.add('gate-fire-particle');
-      fire.textContent = '🔥';
       fire.style.left = Math.random() * 100 + '%';
       
-      // Tamanho aleatório
-      const size = Math.floor(Math.random() * 20) + 20;
-      fire.style.fontSize = size + 'px';
+      const size = Math.floor(Math.random() * 20) + 25;
+      fire.style.width = size + 'px';
+      fire.style.height = size + 'px';
       
-      // Duração da animação
       const duration = Math.random() * 6 + 4;
       fire.style.animationDuration = duration + 's';
       
-      // Delay aleatório
       fire.style.animationDelay = Math.random() * 8 + 's';
       
       gateFire.appendChild(fire);
@@ -505,7 +518,6 @@
     function startGateFire() {
       if (gateFireInterval) clearInterval(gateFireInterval);
       gateFireInterval = setInterval(createGateFire, 3000);
-      // Criar alguns foguinhos iniciais
       for (let i = 0; i < 5; i++) {
         setTimeout(createGateFire, i * 800);
       }
@@ -515,18 +527,14 @@
     function openSite() {
       if (!gate) return;
       
-      // Mostrar loading
       if (loading) loading.classList.add('active');
       
       gate.classList.add('hidden');
       
       setTimeout(() => {
         if (loading) loading.classList.remove('active');
-        // Iniciar frases de xingamento
         startPhrases();
-        // Parar foguinhos do gate (já que o gate sumiu)
         if (gateFireInterval) clearInterval(gateFireInterval);
-        // Remover foguinhos do gate
         if (gateFire) gateFire.innerHTML = '';
       }, 1500);
     }
@@ -541,7 +549,6 @@
       gate.style.cursor = 'pointer';
     }
 
-    // Iniciar foguinhos do gate imediatamente
     startGateFire();
 
     // ===== INICIAR VÍDEO =====
