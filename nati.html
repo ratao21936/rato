@@ -18,18 +18,20 @@
       font-family: 'Arial', sans-serif;
     }
 
-    /* ===== VÍDEO DE FUNDO ===== */
+    /* ===== VÍDEO DE FUNDO (CORRIGIDO) ===== */
     .video-bg {
       position: fixed;
       inset: 0;
       z-index: -2;
       overflow: hidden;
+      background: #0a0015;
     }
     .video-bg video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       filter: brightness(0.5) saturate(0.7) contrast(1.2);
+      display: block;
     }
     .video-bg::after {
       content: '';
@@ -41,6 +43,7 @@
                   rgba(40,0,80,0.2) 40%,
                   rgba(40,0,80,0.5) 65%,
                   rgba(20,0,40,0.85) 100%);
+      pointer-events: none;
     }
 
     /* ===== ELOGIOS E APELIDOS CAINDO ===== */
@@ -442,7 +445,7 @@
 <!-- ===== ELOGIOS E APELIDOS CAINDO ===== -->
 <div class="phrases-container" id="phrases-container"></div>
 
-<!-- ===== CORAÇÕES CHUVA (INTERATIVOS) ===== -->
+<!-- ===== CORAÇÕES CHUVA ===== -->
 <div class="hearts-rain" id="heartsRain"></div>
 
 <!-- ===== CORAÇÕES EXPLOSÃO ===== -->
@@ -484,9 +487,15 @@
     const galleryOverlay = document.getElementById('galleryOverlay');
     const galleryImage = document.getElementById('galleryImage');
 
-    // ===== LISTA DE 11 FOTOS (3 ORIGINAIS + 8 NOVAS) =====
+    // ===== LISTA DE 15 FOTOS (ATUALIZADA) =====
     const photoUrls = [
-      // ===== FOTOS NOVAS (8 do Postimage) =====
+      // ===== FOTOS NOVAS (4) =====
+      "https://i.postimg.cc/44LKyg8S/Captura-de-tela-2026-07-25-130038.png",
+      "https://i.postimg.cc/Sn1pxrpJ/Captura-de-tela-2026-07-25-130201.png",
+      "https://i.postimg.cc/JyyCDk1z/Captura-de-tela-2026-07-25-130225.png",
+      "https://i.postimg.cc/1gg1nq9z/Captura-de-tela-2026-07-25-130241.png",
+      
+      // ===== FOTOS ANTERIORES (11) =====
       "https://i.postimg.cc/5XkPDK8D/Captura-de-tela-2026-07-25-115848.png",
       "https://i.postimg.cc/w1bWn4DP/Captura-de-tela-2026-07-25-120002.png",
       "https://i.postimg.cc/nXwdNSqg/Captura-de-tela-2026-07-25-120012.png",
@@ -495,8 +504,6 @@
       "https://i.postimg.cc/tsmr8vhj/Whats-App-Image-2026-07-25-at-11-49-39.jpg",
       "https://i.postimg.cc/yDrf2pFB/Whats-App-Image-2026-07-25-at-11-49-42.jpg",
       "https://i.postimg.cc/DSYCRp1t/Whats-App-Image-2026-07-25-at-11-49-42-1.jpg",
-      
-      // ===== FOTOS ORIGINAIS (3) =====
       "https://www.image2url.com/r2/default/files/1784960559144-b0f6b066-573d-4ef4-a5cd-d94f4f04d60d.jpg",
       "https://i.ibb.co/ycfxF55P/IMG-20260725-024937.jpg",
       "https://i.ibb.co/nNPtzRVJ/IMG-20260725-025005.jpg"
@@ -567,7 +574,7 @@
 
     galleryOverlay.addEventListener('click', closeGallery);
 
-    // ===== CORAÇÕES CHUVA (INTERATIVOS) =====
+    // ===== CORAÇÕES CHUVA =====
     let rainInterval = null;
 
     function createRainHeart() {
@@ -623,7 +630,7 @@
       }, duration * 1000 + 500);
     }
 
-    // ===== EXPLOSÃO DE CORAÇÕES ROXOS PEQUENOS =====
+    // ===== EXPLOSÃO DE CORAÇÕES ROXOS =====
     function createPurpleExplosion(x, y) {
       const count = 40 + Math.floor(Math.random() * 30);
       
