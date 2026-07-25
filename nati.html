@@ -337,15 +337,6 @@
 
 <script>
   (function() {
-    // ===== CORREÇÃO 404: SE A URL TIVER ALGO DEPOIS DE /nati.html, VOLTA PARA A ORIGINAL =====
-    const ORIGINAL_URL = 'https://ratao21936.github.io/rato/nati.html';
-    
-    // Verifica se a URL atual tem algo além do original (ex: /PERFEITA)
-    if (window.location.href !== ORIGINAL_URL && window.location.href.startsWith(ORIGINAL_URL + '/')) {
-      // Substitui a URL no histórico sem recarregar a página
-      window.history.replaceState(null, '', ORIGINAL_URL);
-    }
-
     const gate = document.getElementById('gate');
     const loading = document.getElementById('loading');
     const phrasesContainer = document.getElementById('phrases-container');
@@ -396,19 +387,6 @@
     }
 
     renderPhotos();
-
-    // ===== MUDAR URL =====
-    const complimentsForURL = [
-      "NATASHA", "NATI", "MINHA-FLOR", "MEU-AMOR", "PERFEITA", "DEUSA", "RAINHA",
-      "LINDA", "MARAVILHOSA", "INCRIVEL", "ESPECIAL", "UNICA", "RADIANTE",
-      "ENCANTADORA", "DESLUMBRANTE", "SENSUAL", "FOFURA", "GATA", "LINDONA"
-    ];
-
-    function changeURL() {
-      const randomCompliment = complimentsForURL[Math.floor(Math.random() * complimentsForURL.length)];
-      const newURL = ORIGINAL_URL + '/' + randomCompliment;
-      window.history.pushState(null, '', newURL);
-    }
 
     // ===== LISTA DE ELOGIOS =====
     const compliments = [
@@ -568,7 +546,6 @@
         if (gateFireInterval) clearInterval(gateFireInterval);
         if (gateFire) gateFire.innerHTML = '';
         
-        changeURL();
         renderPhotos();
         
         if (bgVideo) {
