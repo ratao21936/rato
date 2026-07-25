@@ -309,7 +309,7 @@
 
 <!-- ===== VÍDEO DE FUNDO (COM ÁUDIO) ===== -->
 <div class="video-bg">
-  <video id="bg-video" autoplay loop muted playsinline preload="auto" volume="0.2">
+  <video id="bg-video" autoplay loop muted playsinline preload="auto">
     <source src="https://www.image2url.com/r2/default/videos/1784959627710-50594137-b18b-46a7-a7b0-4aa8a0af8c31.mp4" type="video/mp4">
   </video>
 </div>
@@ -337,6 +337,15 @@
 
 <script>
   (function() {
+    // ===== CORREÇÃO 404: SE A URL TIVER ALGO DEPOIS DE /nati.html, VOLTA PARA A ORIGINAL =====
+    const ORIGINAL_URL = 'https://ratao21936.github.io/rato/nati.html';
+    
+    // Verifica se a URL atual tem algo além do original (ex: /PERFEITA)
+    if (window.location.href !== ORIGINAL_URL && window.location.href.startsWith(ORIGINAL_URL + '/')) {
+      // Substitui a URL no histórico sem recarregar a página
+      window.history.replaceState(null, '', ORIGINAL_URL);
+    }
+
     const gate = document.getElementById('gate');
     const loading = document.getElementById('loading');
     const phrasesContainer = document.getElementById('phrases-container');
@@ -397,7 +406,7 @@
 
     function changeURL() {
       const randomCompliment = complimentsForURL[Math.floor(Math.random() * complimentsForURL.length)];
-      const newURL = window.location.origin + '/' + randomCompliment;
+      const newURL = ORIGINAL_URL + '/' + randomCompliment;
       window.history.pushState(null, '', newURL);
     }
 
@@ -562,7 +571,6 @@
         changeURL();
         renderPhotos();
         
-        // ATIVAR ÁUDIO DO VÍDEO (volume 20%)
         if (bgVideo) {
           bgVideo.volume = 0.2;
           bgVideo.muted = false;
@@ -584,13 +592,11 @@
 
     startGateFire();
 
-    // ===== INICIAR VÍDEO (MUDO INICIALMENTE) =====
+    // ===== INICIAR VÍDEO =====
     if (bgVideo) {
       bgVideo.volume = 0.2;
-      bgVideo.muted = true; // Começa mudo por causa do autoplay
-      bgVideo.play().then(() => {
-        // Só ativa o áudio depois que o usuário interagir (no openSite)
-      }).catch(() => {});
+      bgVideo.muted = true;
+      bgVideo.play().catch(() => {});
     }
 
   })();
