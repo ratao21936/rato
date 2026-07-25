@@ -18,7 +18,7 @@
       font-family: 'Arial', sans-serif;
     }
 
-    /* ===== VÍDEO DE FUNDO (COM ÁUDIO E ÁREA CLARIFICADA) ===== */
+    /* ===== VÍDEO DE FUNDO ===== */
     .video-bg {
       position: fixed;
       inset: 0;
@@ -105,6 +105,94 @@
       }
     }
 
+    /* ===== CORAÇÕES ROXOS CAINDO (CHUVA - INTERATIVOS) ===== */
+    .hearts-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9996;
+      overflow: hidden;
+    }
+    .heart-rain {
+      position: absolute;
+      top: -30px;
+      font-size: 28px;
+      animation: fallHeart linear forwards;
+      opacity: 0.8;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: transform 0.2s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .heart-rain:hover {
+      transform: scale(1.3);
+    }
+    .heart-rain.purple {
+      color: #a855f7;
+      text-shadow: 0 0 20px rgba(168, 85, 247, 0.6), 0 0 40px rgba(168, 85, 247, 0.3);
+    }
+    .heart-rain.pink {
+      color: #f472b6;
+      text-shadow: 0 0 20px rgba(244, 114, 182, 0.5);
+    }
+    .heart-rain.light-pink {
+      color: #f9a8d4;
+      text-shadow: 0 0 20px rgba(249, 168, 212, 0.4);
+    }
+    @keyframes fallHeart {
+      0% {
+        transform: translateY(-30px) rotate(0deg) scale(0.5);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(110vh) rotate(720deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* ===== CORAÇÕES EXPLODINDO (PINATA) ===== */
+    .hearts-explosion {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9996;
+      overflow: hidden;
+    }
+    .heart-explosion {
+      position: absolute;
+      font-size: 16px;
+      animation: explodeHeart 1.5s ease-out forwards;
+      pointer-events: none;
+      color: #a855f7;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+    .heart-explosion.small {
+      font-size: 12px;
+    }
+    .heart-explosion.medium {
+      font-size: 18px;
+    }
+    .heart-explosion.large {
+      font-size: 24px;
+    }
+    @keyframes explodeHeart {
+      0% {
+        transform: translate(0, 0) scale(0.3) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
     /* ===== CORAÇÃO ROXO CAINDO NO GATE ===== */
     .gate-fire {
       position: fixed;
@@ -152,6 +240,7 @@
       animation: floatPhoto 6s ease-in-out infinite;
       pointer-events: auto;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
     }
     .photo-item:hover {
       transform: scale(1.08) !important;
@@ -164,6 +253,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      pointer-events: none;
     }
 
     /* Animações individuais para cada foto */
@@ -205,6 +295,37 @@
       75% {
         transform: translateY(-20px) rotate(4deg) scale(1.01);
       }
+    }
+
+    /* ===== GALERIA EXPANDIDA ===== */
+    .gallery-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10001;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .gallery-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+    .gallery-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      border: 4px solid #a855f7;
+      box-shadow: 0 0 60px rgba(168, 85, 247, 0.4);
+      transform: scale(0.8);
+      transition: transform 0.4s ease;
+    }
+    .gallery-overlay.active img {
+      transform: scale(1);
     }
 
     /* ===== GATE DE ENTRADA ===== */
@@ -295,6 +416,8 @@
       .gate-symbol { font-size: 60px; }
       .gate-fire-particle { font-size: 25px; }
       .falling-phrase { font-size: 16px !important; }
+      .heart-rain { font-size: 22px; }
+      .heart-explosion { font-size: 14px; }
     }
     @media (max-width: 480px) {
       .photo-item { width: 90px; height: 90px; }
@@ -302,12 +425,14 @@
       .gate-symbol { font-size: 50px; }
       .gate-fire-particle { font-size: 20px; }
       .falling-phrase { font-size: 14px !important; }
+      .heart-rain { font-size: 18px; }
+      .heart-explosion { font-size: 12px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ===== VÍDEO DE FUNDO (COM ÁUDIO) ===== -->
+<!-- ===== VÍDEO DE FUNDO ===== -->
 <div class="video-bg">
   <video id="bg-video" autoplay loop muted playsinline preload="auto">
     <source src="https://www.image2url.com/r2/default/videos/1784959627710-50594137-b18b-46a7-a7b0-4aa8a0af8c31.mp4" type="video/mp4">
@@ -317,11 +442,22 @@
 <!-- ===== ELOGIOS E APELIDOS CAINDO ===== -->
 <div class="phrases-container" id="phrases-container"></div>
 
+<!-- ===== CORAÇÕES CHUVA (INTERATIVOS) ===== -->
+<div class="hearts-rain" id="heartsRain"></div>
+
+<!-- ===== CORAÇÕES EXPLOSÃO ===== -->
+<div class="hearts-explosion" id="heartsExplosion"></div>
+
 <!-- ===== CORAÇÕES ROXOS CAINDO NO GATE ===== -->
 <div class="gate-fire" id="gate-fire"></div>
 
 <!-- ===== FOTOS FLUTUANDO ===== -->
 <div class="floating-photos" id="floating-photos"></div>
+
+<!-- ===== GALERIA EXPANDIDA ===== -->
+<div class="gallery-overlay" id="galleryOverlay">
+  <img id="galleryImage" src="" alt="Natasha">
+</div>
 
 <!-- ===== GATE DE ENTRADA ===== -->
 <div class="gate" id="gate">
@@ -343,36 +479,53 @@
     const gateFire = document.getElementById('gate-fire');
     const floatingPhotos = document.getElementById('floating-photos');
     const bgVideo = document.getElementById('bg-video');
+    const heartsRain = document.getElementById('heartsRain');
+    const heartsExplosion = document.getElementById('heartsExplosion');
+    const galleryOverlay = document.getElementById('galleryOverlay');
+    const galleryImage = document.getElementById('galleryImage');
 
-    // ===== LISTA DE FOTOS =====
+    // ===== LISTA DE 11 FOTOS (3 ORIGINAIS + 8 NOVAS) =====
     const photoUrls = [
+      // ===== FOTOS NOVAS (8 do Postimage) =====
+      "https://i.postimg.cc/5XkPDK8D/Captura-de-tela-2026-07-25-115848.png",
+      "https://i.postimg.cc/w1bWn4DP/Captura-de-tela-2026-07-25-120002.png",
+      "https://i.postimg.cc/nXwdNSqg/Captura-de-tela-2026-07-25-120012.png",
+      "https://i.postimg.cc/k2hjLYWf/Captura-de-tela-2026-07-25-120027.png",
+      "https://i.postimg.cc/zyPd42n8/Whats-App-Image-2026-07-25-at-11-49-36.jpg",
+      "https://i.postimg.cc/tsmr8vhj/Whats-App-Image-2026-07-25-at-11-49-39.jpg",
+      "https://i.postimg.cc/yDrf2pFB/Whats-App-Image-2026-07-25-at-11-49-42.jpg",
+      "https://i.postimg.cc/DSYCRp1t/Whats-App-Image-2026-07-25-at-11-49-42-1.jpg",
+      
+      // ===== FOTOS ORIGINAIS (3) =====
       "https://www.image2url.com/r2/default/files/1784960559144-b0f6b066-573d-4ef4-a5cd-d94f4f04d60d.jpg",
       "https://i.ibb.co/ycfxF55P/IMG-20260725-024937.jpg",
       "https://i.ibb.co/nNPtzRVJ/IMG-20260725-025005.jpg"
     ];
 
-    // ===== FUNÇÃO PARA EMBARALHAR ARRAY =====
+    const FALLBACK_IMAGE = "https://cdn.discordapp.com/avatars/1231281182948196430/a_avatar.gif?size=256";
+
+    // ===== EMBARALHAR =====
     function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
       }
-      return array;
+      return shuffled;
     }
 
-    // ===== GERAR ORDEM DAS FOTOS =====
-    function generatePhotoOrder() {
-      const group1 = shuffleArray([...photoUrls]);
-      const group2 = shuffleArray([...photoUrls]);
-      return [...group1, ...group2];
+    // ===== SELECIONAR 6 FOTOS =====
+    function selectRandomPhotos() {
+      const shuffled = shuffleArray(photoUrls);
+      return shuffled.slice(0, 6);
     }
 
     // ===== RENDERIZAR FOTOS =====
     function renderPhotos() {
-      const order = generatePhotoOrder();
+      const selectedPhotos = selectRandomPhotos();
       floatingPhotos.innerHTML = '';
       
-      order.forEach((url, index) => {
+      selectedPhotos.forEach((url, index) => {
         const div = document.createElement('div');
         div.className = 'photo-item';
         
@@ -380,15 +533,141 @@
         img.src = url;
         img.alt = `Natasha ${index + 1}`;
         img.loading = 'lazy';
+        img.dataset.src = url;
+        
+        img.onerror = function() {
+          this.src = FALLBACK_IMAGE;
+          this.dataset.src = FALLBACK_IMAGE;
+        };
+        
+        div.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const imgSrc = this.querySelector('img').dataset.src || this.querySelector('img').src;
+          openGallery(imgSrc);
+        });
         
         div.appendChild(img);
         floatingPhotos.appendChild(div);
       });
     }
 
-    renderPhotos();
+    // ===== GALERIA =====
+    let galleryOpen = false;
 
-    // ===== LISTA DE ELOGIOS =====
+    function openGallery(src) {
+      galleryImage.src = src;
+      galleryOverlay.classList.add('active');
+      galleryOpen = true;
+    }
+
+    function closeGallery() {
+      galleryOverlay.classList.remove('active');
+      galleryOpen = false;
+    }
+
+    galleryOverlay.addEventListener('click', closeGallery);
+
+    // ===== CORAÇÕES CHUVA (INTERATIVOS) =====
+    let rainInterval = null;
+
+    function createRainHeart() {
+      if (!heartsRain) return;
+      const heart = document.createElement('div');
+      heart.className = 'heart-rain';
+      
+      const isPurple = Math.random() < 0.4;
+      const emojis = isPurple ? ['💜'] : ['💕', '💗', '💖', '💝'];
+      heart.textContent = isPurple ? '💜' : emojis[Math.floor(Math.random() * emojis.length)];
+      
+      if (isPurple) {
+        heart.classList.add('purple');
+      } else {
+        const colors = ['pink', 'light-pink'];
+        heart.classList.add(colors[Math.floor(Math.random() * colors.length)]);
+      }
+      
+      const size = Math.random() * 20 + 20;
+      heart.style.fontSize = size + 'px';
+      heart.style.left = Math.random() * 100 + '%';
+      
+      const duration = Math.random() * 5 + 4;
+      heart.style.animationDuration = duration + 's';
+      
+      if (isPurple) {
+        heart.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const rect = this.getBoundingClientRect();
+          const x = rect.left + rect.width / 2;
+          const y = rect.top + rect.height / 2;
+          
+          this.remove();
+          createPurpleExplosion(x, y);
+        });
+        
+        heart.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const rect = this.getBoundingClientRect();
+          const x = rect.left + rect.width / 2;
+          const y = rect.top + rect.height / 2;
+          
+          this.remove();
+          createPurpleExplosion(x, y);
+        }, { passive: false });
+      }
+      
+      heartsRain.appendChild(heart);
+      
+      setTimeout(() => {
+        if (heart && heart.remove) heart.remove();
+      }, duration * 1000 + 500);
+    }
+
+    // ===== EXPLOSÃO DE CORAÇÕES ROXOS PEQUENOS =====
+    function createPurpleExplosion(x, y) {
+      const count = 40 + Math.floor(Math.random() * 30);
+      
+      for (let i = 0; i < count; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart-explosion';
+        heart.textContent = '💜';
+        
+        const sizes = ['small', 'medium', 'large'];
+        heart.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+        
+        const size = Math.random() * 14 + 8;
+        heart.style.fontSize = size + 'px';
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        
+        const angle = Math.random() * 2 * Math.PI;
+        const distance = 80 + Math.random() * 350;
+        const tx = Math.cos(angle) * distance;
+        const ty = Math.sin(angle) * distance - 120;
+        heart.style.setProperty('--tx', tx + 'px');
+        heart.style.setProperty('--ty', ty + 'px');
+        
+        const duration = 1.2 + Math.random() * 0.8;
+        heart.style.animationDuration = duration + 's';
+        heart.style.animationDelay = Math.random() * 0.4 + 's';
+        
+        heartsExplosion.appendChild(heart);
+        
+        setTimeout(() => {
+          if (heart && heart.remove) heart.remove();
+        }, (duration + 0.5) * 1000);
+      }
+    }
+
+    function startRainHearts() {
+      if (rainInterval) clearInterval(rainInterval);
+      rainInterval = setInterval(createRainHeart, 3000);
+      for (let i = 0; i < 5; i++) {
+        setTimeout(createRainHeart, i * 800);
+      }
+    }
+
+    // ===== ELOGIOS =====
     const compliments = [
       "NATASHA 💜", "NATI 💜", "MINHA FLOR", "MINHA NATI", "MINHA NATASHA",
       "NATASHA LINDA", "NATI LINDA", "FLOR LINDA", "MEU AMOR NATASHA", "MEU AMOR NATI",
@@ -411,46 +690,7 @@
       "VOCÊ É MEU ANJO NATASHA", "VOCÊ É MEU ANJO NATI",
       "VOCÊ É MEU CORAÇÃO NATASHA", "VOCÊ É MEU CORAÇÃO NATI",
       "VOCÊ É MINHA RAINHA NATASHA 💜", "VOCÊ É MINHA RAINHA NATI 💜",
-      "VOCÊ É MINHA DEUSA NATASHA 💜", "VOCÊ É MINHA DEUSA NATI 💜",
-      "VOCÊ É MINHA FLOR NATASHA", "VOCÊ É MINHA FLOR NATI",
-      "VOCÊ É MEU SOL NATASHA", "VOCÊ É MEU SOL NATI",
-      "VOCÊ É MINHA LUZ NATASHA", "VOCÊ É MINHA LUZ NATI",
-      "VOCÊ É MEU TESOURO NATASHA", "VOCÊ É MEU TESOURO NATI",
-      "VOCÊ É MEU MUNDO NATASHA", "VOCÊ É MEU MUNDO NATI",
-      "VOCÊ É MINHA PAIXÃO NATASHA", "VOCÊ É MINHA PAIXÃO NATI",
-      "VOCÊ É MEU SONHO NATASHA", "VOCÊ É MEU SONHO NATI",
-      "VOCÊ É MINHA FELICIDADE NATASHA", "VOCÊ É MINHA FELICIDADE NATI",
-      "VOCÊ É MEU SORRISO NATASHA", "VOCÊ É MEU SORRISO NATI",
-      "VOCÊ É MEU ABRAÇO NATASHA", "VOCÊ É MEU ABRAÇO NATI",
-      "VOCÊ É MINHA CALMA NATASHA", "VOCÊ É MINHA CALMA NATI",
-      "VOCÊ É MEU REFÚGIO NATASHA", "VOCÊ É MEU REFÚGIO NATI",
-      "VOCÊ É MINHA MUSA NATASHA", "VOCÊ É MINHA MUSA NATI",
-      "VOCÊ É MINHA INSPIRAÇÃO NATASHA", "VOCÊ É MINHA INSPIRAÇÃO NATI",
-      "VOCÊ É MEU GRANDE AMOR NATASHA", "VOCÊ É MEU GRANDE AMOR NATI",
-      "VOCÊ É MEU AMOR ETERNO NATASHA", "VOCÊ É MEU AMOR ETERNO NATI",
-      "VOCÊ É MINHA ALMA GÊMEA NATASHA", "VOCÊ É MINHA ALMA GÊMEA NATI",
-      "VOCÊ É MINHA METADE NATASHA", "VOCÊ É MINHA METADE NATI",
-      "VOCÊ É MEU MOTIVO NATASHA", "VOCÊ É MEU MOTIVO NATI",
-      "VOCÊ É MINHA RAZÃO NATASHA", "VOCÊ É MINHA RAZÃO NATI",
-      "VOCÊ É MEU ARCO ÍRIS NATASHA", "VOCÊ É MEU ARCO ÍRIS NATI",
-      "VOCÊ É MEU POR DO SOL NATASHA", "VOCÊ É MEU POR DO SOL NATI",
-      "VOCÊ É MEU ORGULHO NATASHA", "VOCÊ É MEU ORGULHO NATI",
-      "VOCÊ ME FAZ BEM NATASHA", "VOCÊ ME FAZ BEM NATI",
-      "VOCÊ ME FAZ FELIZ DE VERDADE NATASHA", "VOCÊ ME FAZ FELIZ DE VERDADE NATI",
-      "VOCÊ É LINDA DEMAIS NATASHA", "VOCÊ É LINDA DEMAIS NATI",
-      "VOCÊ ME ENCANTA NATASHA", "VOCÊ ME ENCANTA NATI",
-      "VOCÊ ME FAZ SORRIR NATASHA", "VOCÊ ME FAZ SORRIR NATI",
-      "NATASHA EU TE AMO 💜", "NATI EU TE AMO 💜",
-      "NATASHA 💜", "NATI 💜",
-      "MINHA FLOR NATASHA", "MINHA FLOR NATI",
-      "NATASHA MEU AMOR", "NATI MEU AMOR",
-      "NATASHA MINHA VIDA", "NATI MINHA VIDA",
-      "NATASHA MEU TUDO", "NATI MEU TUDO",
-      "NATASHA MINHA PRINCESA", "NATI MINHA PRINCESA",
-      "NATASHA MEU ANJO", "NATI MEU ANJO",
-      "NATASHA MEU CORAÇÃO", "NATI MEU CORAÇÃO",
-      "NATASHA MINHA RAINHA 💜", "NATI MINHA RAINHA 💜",
-      "NATASHA MINHA DEUSA 💜", "NATI MINHA DEUSA 💜"
+      "VOCÊ É MINHA DEUSA NATASHA 💜", "VOCÊ É MINHA DEUSA NATI 💜"
     ];
 
     // ===== ELOGIOS CAINDO =====
@@ -494,7 +734,7 @@
       }
     }
 
-    // ===== CORAÇÕES ROXOS CAINDO NO GATE =====
+    // ===== CORAÇÕES NO GATE =====
     let gateFireInterval = null;
 
     function createGateFire() {
@@ -568,13 +808,15 @@
     }
 
     startGateFire();
+    startRainHearts();
 
-    // ===== INICIAR VÍDEO =====
     if (bgVideo) {
       bgVideo.volume = 0.2;
       bgVideo.muted = true;
       bgVideo.play().catch(() => {});
     }
+
+    renderPhotos();
 
   })();
 </script>
