@@ -71,13 +71,40 @@
   /* lua minguante e estrela da tarde */
   .moon {
     --m: clamp(34px, 7vw, 58px);
-    position: fixed; z-index: -2; pointer-events: none;
+    position: fixed; z-index: 5;
     top: clamp(16px, 4vh, 40px); right: clamp(18px, 7vw, 90px);
     width: var(--m); aspect-ratio: 1; border-radius: 50%;
     box-shadow: inset calc(var(--m) * -.24) calc(var(--m) * .08) 0 0 #fff3fb;
     transform: rotate(-18deg);
     filter: drop-shadow(0 0 14px rgba(255,205,240,.9));
+    cursor: pointer;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .3s cubic-bezier(.2,.9,.3,1.3), filter .3s ease;
   }
+  .moon::after {
+    content: ''; position: absolute; inset: -14px; border-radius: 50%;
+  }
+  .moon:hover { transform: rotate(-18deg) scale(1.08); filter: drop-shadow(0 0 22px rgba(255,205,240,1)); }
+  .moon:active { transform: rotate(-18deg) scale(.94); }
+  .moon.pulse { animation: moonPulse .6s cubic-bezier(.2,.9,.3,1.3); }
+  @keyframes moonPulse {
+    0%   { transform: rotate(-18deg) scale(1); }
+    40%  { transform: rotate(-18deg) scale(1.25); filter: drop-shadow(0 0 30px rgba(255,205,240,1)); }
+    100% { transform: rotate(-18deg) scale(1); }
+  }
+
+  .moon-hint {
+    position: fixed; z-index: 5;
+    top: calc(clamp(16px, 4vh, 40px) + clamp(34px, 7vw, 58px) + 8px);
+    right: clamp(18px, 7vw, 90px);
+    font-size: .68rem; font-weight: 300; letter-spacing: .08em;
+    color: rgba(255,208,232,.65); text-transform: uppercase;
+    pointer-events: none; opacity: 0; transition: opacity .4s ease;
+    text-shadow: 0 0 10px rgba(255,111,181,.6);
+  }
+  .moon-hint.show { opacity: 1; }
+
   .vesper {
     position: fixed; z-index: -2; pointer-events: none;
     left: 17%; bottom: calc(var(--ground) + 13vh);
@@ -91,7 +118,6 @@
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   }
 
-  /* pontinhos de luz ao fundo */
   .bokeh { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
   .bokeh i {
     position: absolute; bottom: -10px; width: var(--s); height: var(--s); border-radius: 50%;
@@ -105,7 +131,7 @@
   }
 
   /* =========================================================
-     CHÃO: SERRA, COLINAS, NÉVOA E CAPIM
+     CHÃO
      ========================================================= */
   .ground { position: fixed; left: 0; right: 0; bottom: 0; height: var(--ground); z-index: 2; pointer-events: none; }
   .hill { position: absolute; bottom: 0; border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
@@ -172,13 +198,11 @@
   #fireflies{ z-index: 7; }
   #burst    { z-index: 8; }
 
-  /* borboletas */
   .bfly { position: absolute; left: 0; top: 0; will-change: transform; }
   .bfly svg { width: 100%; display: block; overflow: visible; filter: drop-shadow(0 0 10px rgba(255,130,215,.55)); }
   .wing { transform-box: view-box; transform-origin: 50px 40px; animation: flap var(--flap, .26s) ease-in-out infinite alternate; }
   @keyframes flap { from { transform: scaleX(1); } to { transform: scaleX(.16); } }
 
-  /* palavras que sobem como vagalumes */
   .phrase {
     position: absolute; bottom: -34px;
     font-family: var(--font-display); font-style: italic; font-weight: 400;
@@ -196,7 +220,6 @@
     100% { transform: translate3d(var(--sway), -112vh, 0) rotate(var(--r1)); opacity: 0; }
   }
 
-  /* pétalas de rosa caindo */
   .petal-fall {
     position: absolute; top: -30px; border-radius: 70% 0 70% 0;
     background: linear-gradient(160deg, #ffe3f1, #ff5aa8);
@@ -210,7 +233,6 @@
     100% { transform: translate3d(var(--sway), 112vh, 0) rotate(var(--r1)); opacity: 0; }
   }
 
-  /* vagalumes (clicáveis) */
   .firefly {
     position: absolute; left: 0; top: 0;
     width: var(--sz); height: var(--sz);
@@ -241,7 +263,6 @@
 
   .spark { position: absolute; border-radius: 50%; pointer-events: none; will-change: transform, opacity; }
 
-  /* vagalumes que formam o coração */
   .hfly { position: absolute; left: 0; top: 0; width: var(--s); height: var(--s); margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2); will-change: transform, opacity; }
   #heartLayer { z-index: 10003; }
   .hfly i {
@@ -252,7 +273,6 @@
   }
   @keyframes hflyBlink { 0%,100% { opacity: .7; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.15); } }
 
-  /* recado do vagalume rosa */
   .note {
     position: fixed; left: 50%; top: 44%; z-index: 9000;
     width: min(86vw, 400px); padding: 22px 24px 18px; text-align: center;
@@ -273,6 +293,21 @@
   }
   .note p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.3rem, 4.8vw, 1.7rem); line-height: 1.25; text-shadow: 0 0 18px rgba(255,111,181,.5); }
   .note small { display: block; margin-top: 12px; font-size: .72rem; font-weight: 300; color: rgba(234,215,255,.75); }
+
+  .note-close {
+    margin-top: 14px;
+    padding: 9px 22px;
+    font-family: var(--font-body);
+    font-size: .82rem;
+    letter-spacing: .04em;
+    color: #fff;
+    border-radius: 999px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,208,232,.6);
+    transition: background .25s ease, transform .2s ease;
+  }
+  .note-close:hover { background: rgba(255,255,255,.22); }
+  .note-close:active { transform: scale(.96); }
 
   /* =========================================================
      ENTRADA: CASULO
@@ -406,7 +441,6 @@
   .letter-btn:hover { transform: translateY(-3px); background: linear-gradient(135deg, rgba(255,140,200,.7), rgba(130,60,225,.85)); box-shadow: 0 16px 42px rgba(178,92,240,.5), inset 0 1px 0 rgba(255,255,255,.4); }
   .letter-btn:active { transform: translateY(0) scale(.98); }
 
-  /* pote de vagalumes */
   .foot {
     position: fixed; left: 0; right: 0; bottom: max(10px, env(safe-area-inset-bottom));
     z-index: 5; display: flex; flex-direction: column; align-items: center; gap: 2px;
@@ -422,9 +456,6 @@
   .score.bump b { animation: bumpNum .35s ease; }
   @keyframes bumpNum { 50% { transform: scale(1.5); } }
 
-  /* =========================================================
-     CARTA
-     ========================================================= */
   .letter-overlay {
     position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; padding: 20px;
     background: rgba(14,3,32,.68);
@@ -464,9 +495,6 @@
   }
   .paper-close:hover { background: #8a2fc4; color: #fdf6ff; }
 
-  /* =========================================================
-     PEDIDO
-     ========================================================= */
   .proposal {
     position: fixed; inset: 0; z-index: 10002;
     display: flex; align-items: flex-end; justify-content: center;
@@ -504,9 +532,6 @@
   }
   .btn-no.fled { position: fixed; z-index: 10003; margin: 0; }
 
-  /* =========================================================
-     RESPONSIVO + MOVIMENTO REDUZIDO
-     ========================================================= */
   @media (max-height: 560px) {
     .name { font-size: clamp(4rem, 22vh, 8rem); }
     .stage { padding-top: 12px; padding-bottom: 80px; }
@@ -528,7 +553,8 @@
 <div class="sky" aria-hidden="true"></div>
 <div class="horizon" aria-hidden="true"></div>
 <div class="stars" id="stars" aria-hidden="true"></div>
-<div class="moon" aria-hidden="true"></div>
+<div class="moon" id="moon" role="button" tabindex="0" aria-label="Tocar na lua para uma surpresa"></div>
+<span class="moon-hint" id="moonHint" aria-hidden="true">toque na lua</span>
 <div class="vesper" aria-hidden="true"></div>
 <div class="bokeh" id="bokeh" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
@@ -669,6 +695,23 @@
     'Você é psiquiatra? Porque você me deixou louco.',
     'Você tem um X tatuado no pé? Porque o X mostra o meu tesouro.'
   ];
+
+  /* ---------- EASTER EGG: cantadas da lua ---------- */
+  var MOON_LINES = [
+    'Você é anemia? Porque você me deixou fraco.',
+    'Você tem uma tatuagem de X no pé? É porque X marca o meu tesouro.',
+    'Você não é dentista, mas me deixou sorrindo à toa.',
+    'Você é a lua? Porque ilumina até o meu lado mais escuro.',
+    'Se beleza fosse crime, você pegava prisão perpétua.',
+    'Você é wifi? Porque eu sinto uma conexão forte com você.',
+    'Você não é eclipse, mas meu mundo ficou coberto de você.',
+    'Você é febre? Porque eu tô quente só de te olhar.',
+    'Você não é mapa, mas eu me perdi todo em você.',
+    'Você é vagalume? Porque onde você passa, o escuro fica bonito.',
+    'Você é presente de aniversário? Porque eu já quero te abrir.',
+    'Você não é sol, mas eu fico o dia inteiro pensando em você.'
+  ];
+  var MOON_CLICKS_TO_OPEN = 5;
 
   var BUTTERFLY_COLORS = [
     ['#ff6fb5', '#c04cff'],
@@ -909,7 +952,7 @@
     noteTimer = setTimeout(function () { hideNote(); }, 9000);
   }
 
-  /* ---------- vagalumes (com vida própria) ---------- */
+  /* ---------- vagalumes ---------- */
   var FF = [];
   var fireflyTarget = isMobile ? 6 : 9;
   var caught = 0;
@@ -1032,7 +1075,7 @@
   var lastRelease = 0;
   document.addEventListener('pointerdown', function (e) {
     if (!document.body.classList.contains('on')) return;
-    if (e.target.closest && e.target.closest('button, .firefly, .note, .proposal, .letter-overlay, .gate')) return;
+    if (e.target.closest && e.target.closest('button, .firefly, .note, .proposal, .letter-overlay, .gate, .moon')) return;
     if (proposalStarted && !proposalDone) return;
     if (e.clientY < vh() * .78) return;
     var now = performance.now();
@@ -1076,7 +1119,6 @@
     hideNote(true);
     var W = vw(), H = vh();
 
-    // vagalumes soltos se despedem
     FF.forEach(function (f) {
       f.frozen = true;
       f.el.style.pointerEvents = 'none';
@@ -1086,7 +1128,6 @@
     });
     FF.length = 0;
 
-    // vagalumes saem do pote e formam um coração
     var s = Math.min(W * .8, H * .42) / 34;
     var cx = W / 2, cy = H * .34;
     var jr = jar.getBoundingClientRect();
@@ -1217,6 +1258,120 @@
     if (e.key === 'Escape' && overlay.classList.contains('open')) closeLetter();
   });
 
+  /* ---------- EASTER EGG: lua das cantadas ---------- */
+  (function () {
+    var moon = $('moon');
+    var hint = $('moonHint');
+    if (!moon) return;
+
+    var clicks = 0;
+    var moonNote = null;
+    var moonLinePool = [];
+    var hintTimer = null;
+
+    function nextMoonLine() {
+      if (!moonLinePool.length) moonLinePool = shuffle(MOON_LINES.slice());
+      var last = moonNote && moonNote.dataset.line;
+      var line;
+      do { line = moonLinePool.pop(); } while (line === last && moonLinePool.length);
+      return line;
+    }
+
+    function hideMoonNote() {
+      if (!moonNote) return;
+      var n = moonNote;
+      moonNote = null;
+      n.classList.remove('show');
+      setTimeout(function () { n.remove(); }, 450);
+    }
+
+    function showMoonNote(text) {
+      hideMoonNote();
+      var n = document.createElement('div');
+      n.className = 'note';
+      n.dataset.line = text;
+      n.setAttribute('role', 'dialog');
+      n.setAttribute('aria-label', 'Cantada da lua');
+      n.innerHTML =
+        '<span class="note-dot"></span>' +
+        '<p></p>' +
+        '<small>toque na lua de novo para outra</small>' +
+        '<button class="note-close" type="button">Fechar</button>';
+      n.querySelector('p').textContent = text;
+
+      var closeB = n.querySelector('.note-close');
+      closeB.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+      closeB.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        hideMoonNote();
+      });
+
+      document.body.appendChild(n);
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () { n.classList.add('show'); });
+      });
+      moonNote = n;
+    }
+
+    function pulseMoon() {
+      moon.classList.remove('pulse');
+      void moon.offsetWidth;
+      moon.classList.add('pulse');
+    }
+
+    function showHintOnce() {
+      if (!hint) return;
+      hint.classList.add('show');
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(function () { hint.classList.remove('show'); }, 2600);
+    }
+
+    function onMoon() {
+      pulseMoon();
+      // se já tem um recado aberto, mostra o próximo direto
+      if (moonNote) {
+        showMoonNote(nextMoonLine());
+        try { if (navigator.vibrate) navigator.vibrate(12); } catch (_) {}
+        return;
+      }
+      clicks++;
+      try { if (navigator.vibrate) navigator.vibrate(8); } catch (_) {}
+      if (clicks >= MOON_CLICKS_TO_OPEN) {
+        clicks = 0;
+        var r = moon.getBoundingClientRect();
+        sparks(r.left + r.width / 2, r.top + r.height / 2, 'rare');
+        showMoonNote(nextMoonLine());
+      } else {
+        // feedback sutil: quanto mais perto, mais brilha
+        var strength = clicks / MOON_CLICKS_TO_OPEN;
+        moon.style.filter = 'drop-shadow(0 0 ' + (14 + strength * 20) + 'px rgba(255,205,240,' + (0.9 + strength * 0.1) + '))';
+        setTimeout(function () {
+          if (!moonNote) moon.style.filter = '';
+        }, 500);
+        showHintOnce();
+      }
+    }
+
+    moon.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      onMoon();
+    });
+    moon.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        e.stopPropagation();
+        onMoon();
+      }
+    });
+
+    // fecha o recado da lua ao apertar ESC
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && moonNote) hideMoonNote();
+    });
+  })();
+
   /* ---------- abrir o casulo / entrar ---------- */
   var opened = false;
   function openSite(e) {
@@ -1240,14 +1395,12 @@
 
     var t0 = wait + (reduceMotion ? 100 : 700);
 
-    // vagalumes e borboletas
     setTimeout(function () {
       for (var i = 0; i < fireflyTarget; i++) setTimeout(function () { spawnFirefly(); }, i * 350);
       if (!reduceMotion) requestAnimationFrame(tick);
       for (var b = 0; b < 3; b++) setTimeout(function () { spawnButterfly(); }, b * 1400);
       setInterval(function () { spawnButterfly(); }, isMobile ? 6500 : 4500);
       setInterval(topUp, 4000);
-      // vagalume rosa: aparece de tempos em tempos
       function rareLoop() {
         var has = FF.some(function (f) { return f.rare; });
         if (!has && !(proposalStarted && !proposalDone)) spawnFirefly({ rare: true });
@@ -1256,7 +1409,6 @@
       setInterval(rareLoop, 24000);
     }, t0);
 
-    // palavras e pétalas
     setTimeout(function () {
       var n = isMobile ? 4 : 7;
       for (var i = 0; i < n; i++) setTimeout(risingPhrase, i * 700);
