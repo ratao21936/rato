@@ -1,5 +1,10 @@
-<title>! Rato Portfólio</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0709">
+<title>! Rato | Portfólio</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&family=Yellowtail&display=swap">
 <style>
 /* Layout: hero com título gigante atrás da foto recortada, depois seções editoriais em grade 12 colunas */
@@ -215,7 +220,30 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
   @keyframes rise{from{opacity:.0;transform:translateY(30px)}to{opacity:1;transform:none}}
   .photo{--x:0}
 }
+
+html{background:#0a0709;-webkit-text-size-adjust:100%}
+img{max-width:100%}
+#intro{animation:introFail .5s 12s forwards}
+#introSkip{animation:introFail .5s 12s forwards}
+@keyframes introFail{to{opacity:0;visibility:hidden}}
+html.safe #intro,html.safe #introSkip{display:none!important}
+html.safe{overflow:auto!important}
+html.safe .reveal{opacity:1!important;transform:none!important;transition:none!important}
+html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacity:1!important}
 </style>
+<script>
+/* rede de seguranca: se algo falhar, mostra o site sem intro/animacoes */
+(function(){
+  var h=document.documentElement;
+  window.addEventListener('error',function(e){
+    if(e&&e.filename&&e.filename.indexOf('gstatic')>-1)return;
+    h.classList.add('safe');
+  });
+  setTimeout(function(){if(document.getElementById('intro'))h.classList.add('safe')},12000);
+})();
+</script>
+</head>
+<body>
 
 <div id="prog" aria-hidden="true"></div>
 <canvas id="intro" aria-hidden="true"></canvas>
@@ -364,4 +392,286 @@ footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;paddin
       
       <h2 class="d" style="font-size:clamp(44px,6.5vw,86px);margin:10px 0 0">Não é só código.<br>É resolver <span class="red">de verdade.</span></h2>
       <p class="txt">Eu sou o Rato, programador. Construo bots, projetos de hardware com ESP8266 e sites, sempre com o mesmo cuidado: entender o problema, escrever código limpo e entregar algo que funciona.</p>
+      <div class="skills">
+        <div><h4>Foco</h4><ul><li>Bots e automação</li><li>IoT e eletrônica</li><li>Sites e interfaces</li></ul></div>
+        <div><h4>Ferramentas</h4><ul><li>Python · discord.py</li><li>C++ · Arduino IDE</li><li>HTML · CSS · JS · Git</li></ul></div>
+      </div>
+    </div>
+    <div class="quote"><q>Hardware a gente chuta e software a gente xinga.</q><span>— Rato</span></div>
+  </div>
+  <div class="steps" id="processo">
+    <div class="step"><div class="k">ETAPA 1</div><h5>O problema</h5><p>Entender o que precisa ser resolvido e pra quem.</p></div>
+    <div class="step"><div class="k">ETAPA 2</div><h5>O plano</h5><p>Escolher a ferramenta e desenhar a estrutura antes de codar.</p></div>
+    <div class="step"><div class="k">ETAPA 3</div><h5>O código</h5><p>Escrever, testar e refinar até ficar limpo e rápido.</p></div>
+    <div class="step"><div class="k">ETAPA 4</div><h5>O deploy</h5><p>Colocar no ar e acompanhar até rodar sem susto.</p></div>
+  </div>
+</section>
+
+<section id="playlist">
+  <div class="music">
+    <div>
       
+      <h2 class="d">Um pouco de música.<br><span class="red">Muito código.</span></h2>
+      <p>Eu programo ouvindo música o tempo todo. Essa é a playlist que fica tocando enquanto o código sai.</p>
+      <a class="btn" href="https://open.spotify.com/playlist/4gZ8YD30fBXsyRHwixnHNV" target="_blank" rel="noopener">Ouvir no Spotify <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="player">
+      <div class="disc" aria-hidden="true"></div>
+      <div>
+        <div class="label">Tocando agora</div>
+        <h3>Minha playlist</h3>
+        <small>Spotify · 103 músicas</small>
+        <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  
+  <h2 class="d">Vamos<br>trabalhar <span>juntos.</span></h2>
+  <div class="row">
+    <div>
+      <div class="mail"><small>E-mail</small>mc.ratao21936@gmail.com</div>
+      <div class="socials">
+        <a class="pill" href="https://github.com/ratao21936" target="_blank" rel="noopener">GitHub</a>
+        <a class="pill" href="https://www.tiktok.com/@rato21936" target="_blank" rel="noopener">TikTok</a>
+        <a class="pill" href="https://discord.com/users/1231281182948196430" target="_blank" rel="noopener">Discord</a>
+        <a class="pill" href="https://discord.gg/NsQ4nv4wUG" target="_blank" rel="noopener">Zen Community</a>
+        <a class="pill" href="https://www.roblox.com/users/1600058075/profile" target="_blank" rel="noopener">Roblox</a>
+        <a class="pill" href="https://open.spotify.com/user/31j2fkrmrvfsnolxfnntwxxutbge" target="_blank" rel="noopener">Spotify</a>
+      </div>
+    </div>
+    <div class="fe">Faça<br>funcionar.</div>
+  </div>
+  <div class="engage">
+    <span class="ask">Curtiu o portfólio?</span>
+    <button class="react" id="like-btn" type="button" aria-pressed="false" aria-label="Curtir"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg><span id="like-count">—</span></button>
+    <button class="react dn" id="dislike-btn" type="button" aria-pressed="false" aria-label="Não curtir"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg><span id="dislike-count">—</span></button>
+  </div>
+</section>
+
+<footer><span>© 2026 ! Rato. Todos os direitos reservados.</span><a href="#top">Voltar ao topo ↑</a></footer>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+/* filtro de projetos com animacao */
+(function(){
+  var btns=document.querySelectorAll('.tabs button'),cards=document.querySelectorAll('#grid .card');
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    btns.forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+    var f=b.dataset.f;
+    cards.forEach(function(c){
+      var show=(f==='all'||c.dataset.c===f);
+      c.hidden=!show;c.classList.remove('pop');
+      if(show&&!RM){void c.offsetWidth;c.classList.add('pop')}
+    });
+  })});
+})();
+
+/* revelar ao rolar + barra de progresso */
+(function(){
+  var prog=document.getElementById('prog'),tick=false;
+  function upd(){tick=false;var h=document.documentElement.scrollHeight-window.innerHeight;prog.style.transform='scaleX('+(h>0?Math.min(1,window.scrollY/h):0)+')'}
+  window.addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});
+  upd();
+  if(RM||!('IntersectionObserver' in window))return;
+  var sel='.head,.tabs,.card,.awards>div,.list li,.about>div,.step,.music>div,.contact .d,.row,.engage,footer';
+  var els=document.querySelectorAll(sel);
+  var cnt=new Map();
+  els.forEach(function(el){
+    var par=el.parentElement,i=cnt.get(par)||0;cnt.set(par,i+1);
+    el.classList.add('reveal');el.style.setProperty('--d',Math.min(i*0.09,0.45)+'s');
+  });
+  document.documentElement.classList.add('rv');
+  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -6% 0px',threshold:0.06});
+  els.forEach(function(el){io.observe(el)});
+})();
+
+/* parallax suave no hero (mouse) */
+(function(){
+  if(RM)return;
+  var hero=document.querySelector('.hero'),big=hero&&hero.querySelector('.big'),ph=hero&&hero.querySelector('.photo');
+  if(!hero||!big||!ph)return;
+  var tx=0,ty=0,cx=0,cy=0,run=false;
+  function tick(){
+    cx+=(tx-cx)*0.08;cy+=(ty-cy)*0.08;
+    big.style.translate=(-cx*26)+'px '+(-cy*14)+'px';
+    ph.style.translate=(cx*14)+'px '+(cy*8)+'px';
+    if(Math.abs(tx-cx)>0.001||Math.abs(ty-cy)>0.001)requestAnimationFrame(tick);else run=false;
+  }
+  function go(){if(!run){run=true;requestAnimationFrame(tick)}}
+  hero.addEventListener('pointermove',function(e){
+    if(e.pointerType!=='mouse')return;
+    var r=hero.getBoundingClientRect();tx=(e.clientX-r.left)/r.width-0.5;ty=(e.clientY-r.top)/r.height-0.5;go();
+  });
+  hero.addEventListener('pointerleave',function(){tx=0;ty=0;go()});
+})();
+
+/* Firebase: visitas e reacoes (mesmos caminhos do site antigo: contador, likes, deslikes) */
+(function(){
+  var vc=document.getElementById('view-count'),lb=document.getElementById('like-btn'),db=document.getElementById('dislike-btn'),
+      lc=document.getElementById('like-count'),dc=document.getElementById('dislike-count');
+  if(!vc||!lb||!db)return;
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,v)}catch(e){return null}}
+  function fmt(n){n=+n||0;if(n>=1e6)return(n/1e6).toFixed(1).replace(/\.0$/,'')+'M';if(n>=1e3)return(n/1e3).toFixed(1).replace(/\.0$/,'')+'k';return String(n)}
+  function off(){[lb,db].forEach(function(b){b.disabled=true;b.title='Os contadores funcionam no site publicado'})}
+  if(typeof firebase==='undefined'||!firebase.initializeApp){off();return}
+  var CFG={apiKey:"AIzaSyAbctCi7FEjZqDxJxiW7Ru4ddi396dtmZ0",authDomain:"bio-rato.firebaseapp.com",databaseURL:"https://bio-rato-default-rtdb.firebaseio.com",projectId:"bio-rato",storageBucket:"bio-rato.firebasestorage.app",messagingSenderId:"208785987108",appId:"1:208785987108:web:76608642c207bb86dceab1",measurementId:"G-REJ4J8B2RP"};
+  var vRef,lRef,dRef;
+  try{
+    if(!firebase.apps.length)firebase.initializeApp(CFG);
+    var base=firebase.database();
+    vRef=base.ref('contador');lRef=base.ref('likes');dRef=base.ref('deslikes');
+  }catch(e){off();return}
+  vRef.on('value',function(sn){vc.textContent=fmt(sn.val())});
+  lRef.on('value',function(sn){lc.textContent=fmt(sn.val())});
+  dRef.on('value',function(sn){dc.textContent=fmt(sn.val())});
+  if(!store('rato_viewed')){vRef.transaction(function(c){return(c||0)+1});store('rato_viewed','1')}
+  var vote=store('rato_vote');
+  function paint(){
+    lb.setAttribute('aria-pressed',String(vote==='like'));db.setAttribute('aria-pressed',String(vote==='dislike'));
+    lb.classList.toggle('on',vote==='like');db.classList.toggle('on',vote==='dislike');
+  }
+  paint();
+  function inc(r){r.transaction(function(c){return(c||0)+1})}
+  function dec(r){r.transaction(function(c){return Math.max(0,(c||0)-1)})}
+  function cast(kind){
+    var mine=kind==='like'?lRef:dRef,other=kind==='like'?dRef:lRef;
+    if(vote===kind){dec(mine);vote=null}
+    else{if(vote)dec(other);inc(mine);vote=kind}
+    store('rato_vote',vote);paint();
+  }
+  lb.addEventListener('click',function(){cast('like')});
+  db.addEventListener('click',function(){cast('dislike')});
+})();
+
+/* intro: olho feito de codigo */
+(function(){
+  var cv=document.getElementById('intro'),skip=document.getElementById('introSkip'),root=document.documentElement;
+  if(!cv)return;
+  function kill(){try{cv.remove();skip.remove()}catch(e){}root.classList.remove('intro-on');root.style.overflow=''}
+  if(RM){kill();return}
+  var ctx=cv.getContext('2d');if(!ctx){kill();return}
+  root.classList.add('intro-on');root.style.overflow='hidden';
+  var dpr=Math.min(window.devicePixelRatio||1,2),W=0,H=0,CW=9,CH=14,ended=false,raf=0,T0=0;
+  function size(){W=window.innerWidth;H=window.innerHeight;cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);CW=W<600?8:9;CH=W<600?13:14}
+  size();window.addEventListener('resize',size);
+  var SET='01{}()<>/;=+-*&|#$%[]',N=SET.length,MONO='ui-monospace,Menlo,Consolas,monospace';
+  function hash(a,b,c){var h=(a*374761393+b*668265263+c*2147483647)|0;h=(h^(h>>>13))*1274126177|0;return((h^(h>>>16))>>>0)/4294967295}
+  function cl(t){return t<0?0:t>1?1:t}
+  function ease(t){t=cl(t);return t*t*(3-2*t)}
+  function eo(t){t=cl(t);return 1-Math.pow(1-t,3)}
+  var DUR=7000;
+  var LOOK=[[1600,0,0],[2100,-1,0.2],[2600,-1,0.2],[2950,0.9,-0.15],[3400,0.9,-0.15],[3700,0,0]];
+  function lookAt(t){
+    if(t<=LOOK[0][0])return[0,0];
+    for(var i=1;i<LOOK.length;i++){
+      if(t<LOOK[i][0]){var a=LOOK[i-1],b=LOOK[i],u=ease((t-a[0])/(b[0]-a[0]));return[a[1]+(b[1]-a[1])*u,a[2]+(b[2]-a[2])*u]}
+    }
+    return[0,0];
+  }
+  function end(){
+    if(ended)return;ended=true;cancelAnimationFrame(raf);
+    cv.style.transition='opacity .35s';cv.style.opacity='0';skip.style.opacity='0';
+    root.style.overflow='';root.classList.remove('intro-on');setTimeout(kill,420);
+  }
+  skip.addEventListener('click',end);
+  window.addEventListener('keydown',function(e){if(e.key==='Escape'||e.key==='Enter'||e.key===' ')end()});
+  setTimeout(end,10000);
+  var COL={edge:'#fff1ee',pale:'#5a474a',bright:'#ff6a5e',mid:'#f0322f',dark:'#a3181b',dim:'#3a1a1f'};
+  var B={edge:[],pale:[],bright:[],mid:[],dark:[],dim:[]};
+  var ORDER=['dim','pale','dark','mid','bright','edge'];
+  function frame(now){
+    if(ended)return;
+    if(!T0)T0=now;
+    var t=now-T0;
+    if(t>=DUR){end();return}
+    var open=eo((t-450)/950);
+    if(t>3800&&t<4200)open*=1-Math.sin((t-3800)/400*Math.PI)*0.97;
+    var lk=lookAt(t);
+    var ew0=Math.min(W*0.94,1100),eh0=ew0*0.2,R0=eh0*0.92;
+    var zmax=Math.hypot(W,H)/(R0*0.5)+1;
+    var zt=cl((t-4250)/1750),z=1+(zmax-1)*zt*zt*zt;
+    var pf=0.40+0.04*Math.sin(t/420)+0.1*zt;
+    var ew=ew0*z,eh=eh0*z,R=R0*z;
+    var sh=zt*5,fr=Math.floor(t/70);
+    var cx=W/2+(hash(fr,1,2)-0.5)*sh,cy=H/2+(hash(fr,3,4)-0.5)*sh;
+    var ix=cx+lk[0]*ew0*0.2,iy=cy+lk[1]*eh0*0.3+Math.sin(t/700)*1.5;
+    var fade=1-ease((t-6000)/800);
+    cv.style.opacity=String(fade);skip.style.opacity=String(fade);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
+    ctx.fillStyle='#050204';ctx.fillRect(0,0,W,H);
+    if(open>0.05){
+      var g=ctx.createRadialGradient(ix,iy,R*0.2,ix,iy,R*1.7);
+      g.addColorStop(0,'rgba(232,49,47,0.42)');g.addColorStop(1,'rgba(232,49,47,0)');
+      ctx.globalCompositeOperation='lighter';ctx.globalAlpha=open;ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
+    }
+    var k;for(k in B)B[k].length=0;
+    var cols=Math.ceil(W/CW),rows=Math.ceil(H/CH),c,r,x,y,dx,hl,dy,ddx,dd,f,bk,h,ang,sp;
+    var spec=R*0.11,sx=ix-R*0.38,sy=iy-R*0.38;
+    for(r=0;r<rows;r++){
+      y=r*CH+CH/2;dy=Math.abs(y-cy);
+      for(c=0;c<cols;c++){
+        x=c*CW+CW/2;dx=(x-cx)/(ew/2);bk=null;
+        if(dx>-1&&dx<1){
+          hl=open*eh*Math.pow(1-dx*dx,0.8);
+          if(Math.abs(dy-hl)<CH*0.55)bk='edge';
+          else if(dy<hl){
+            ddx=x-ix;dd=Math.hypot(ddx,y-iy);
+            if(dd<R){
+              f=dd/R;
+              if(f<pf)continue;
+              if(Math.hypot(x-sx,y-sy)<spec){bk='edge'}
+              else{
+                ang=Math.atan2(y-iy,ddx);
+                sp=0.5+0.5*Math.sin(ang*16+t*0.0007+f*5);
+                if(f>0.92)bk='dark';
+                else if(f>0.8)bk=sp>0.5?'mid':'dark';
+                else if(f>0.55)bk=sp>0.4?'bright':'mid';
+                else bk=sp>0.6?'edge':'bright';
+              }
+            }else{
+              if(hash(c,r,3)<0.35)continue;
+              bk='pale';
+            }
+          }
+        }
+        if(!bk){
+          if(hash(c,0,99)<0.4){
+            var head=(t*(0.012+hash(c,1,99)*0.02)+hash(c,2,99)*rows*3)%(rows+14),d=head-r;
+            if(d>=0&&d<9)bk=d<1?'dark':'dim';
+          }
+          if(!bk)continue;
+        }
+        h=hash(c,r,(bk==='pale'||bk==='edge')?7:(fr>>1));
+        B[bk].push(x-CW/2+1,y-CH/2+1,SET.charAt((h*N)|0));
+      }
+    }
+    ctx.textBaseline='top';
+    var i,j,a;
+    for(i=0;i<ORDER.length;i++){
+      k=ORDER[i];a=B[k];if(!a.length)continue;
+      ctx.fillStyle=COL[k];
+      ctx.font=((k==='mid'||k==='bright'||k==='dark')?'bold ':'')+(CH-3)+'px '+MONO;
+      for(j=0;j<a.length;j+=3)ctx.fillText(a[j+2],a[j],a[j+1]);
+    }
+    var pct=Math.floor(cl(t/(DUR-900))*100),px=Math.max(16,0),py=H-34;
+    ctx.font='11px '+MONO;ctx.fillStyle='#8d8084';
+    var label='> iniciando ! rato.dev  ';
+    ctx.fillText(label,px,py);
+    ctx.fillStyle='#ff6a5e';ctx.fillText(pct+'%',px+ctx.measureText(label).width,py);
+    raf=requestAnimationFrame(frame);
+  }
+  raf=requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
