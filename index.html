@@ -4,7 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0a0709">
+<meta name="description" content="Rato, programador. Bots de Discord em Python, projetos de hardware com ESP8266 e sites. Portfólio com projetos, stack e contato.">
+<meta name="author" content="Rato">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="! Rato | Portfólio">
+<meta property="og:description" content="Bots, hardware e sites, do primeiro commit ao deploy.">
+<meta name="twitter:card" content="summary">
 <title>! Rato | Portfólio</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0709'/%3E%3Crect x='27' y='12' width='10' height='28' rx='5' fill='%23e8312f'/%3E%3Ccircle cx='32' cy='50' r='6' fill='%23e8312f'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&family=Yellowtail&display=swap">
 <style>
 /* Layout: hero com título gigante atrás da foto recortada, depois seções editoriais em grade 12 colunas */
@@ -73,7 +81,6 @@ nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:linea
   .photo{width:min(100%,380px);margin:-4vw auto 0;right:auto}
   .who{max-width:none;padding-top:0;margin-top:-8vw}
   .scroll{display:none}
-}
 }
 
 /* section frame */
@@ -162,6 +169,9 @@ html.rv .card.reveal{transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .
   @keyframes blink{50%{opacity:0}}
 }
 
+.socials .pill{display:inline-flex;align-items:center;gap:8px}
+.socials .pill svg{width:16px;height:16px;flex:none;color:var(--red-soft)}
+
 /* visitas e reacoes (Firebase) */
 .views{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:#cfc4c6;padding:9px 14px;border:1px solid var(--line);border-radius:99px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .views svg{color:var(--red-soft);flex:none}
@@ -208,7 +218,9 @@ html.intro-on .big,html.intro-on .photo,html.intro-on .who>*{animation-play-stat
 .contact h2 span{color:var(--red)}
 .row{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-top:40px}
 .row .fe{font-family:var(--display);font-size:clamp(34px,5vw,64px);text-transform:uppercase;line-height:.95;color:transparent;-webkit-text-stroke:1.5px var(--red)}
-.mail{font-size:18px;margin:18px 0 0;user-select:all}
+.mail{font-size:18px;margin:18px 0 0}
+.mail a{border-bottom:1px solid var(--red);padding-bottom:2px}
+.mail a:hover{color:var(--red-soft)}
 .mail small{display:block;color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px}
 .socials{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
 footer{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-block:28px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
@@ -230,6 +242,24 @@ html.safe #intro,html.safe #introSkip{display:none!important}
 html.safe{overflow:auto!important}
 html.safe .reveal{opacity:1!important;transform:none!important;transition:none!important}
 html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacity:1!important}
+
+/* trilha sonora */
+#snd{position:fixed;z-index:90;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:10px;font:inherit;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--fg);background:rgba(10,7,9,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:99px;padding:9px 16px 9px 14px;cursor:pointer;transition:border-color .3s,color .3s}
+#snd:hover{border-color:var(--red);color:var(--red-soft)}
+#snd:focus-visible{outline:2px solid var(--red-soft);outline-offset:3px}
+#snd .b{display:flex;align-items:flex-end;gap:2px;height:12px}
+#snd .b i{display:block;width:2px;height:100%;background:var(--red-soft);transform-origin:bottom;transform:scaleY(.25)}
+#snd[aria-pressed="true"] .b i:nth-child(1){transform:scaleY(.6)}
+#snd[aria-pressed="true"] .b i:nth-child(2){transform:scaleY(1)}
+#snd[aria-pressed="true"] .b i:nth-child(3){transform:scaleY(.45)}
+#snd[aria-pressed="true"] .b i:nth-child(4){transform:scaleY(.8)}
+@media(prefers-reduced-motion:no-preference){
+  #snd[aria-pressed="true"] .b i{animation:beat .9s ease-in-out infinite alternate}
+  #snd[aria-pressed="true"] .b i:nth-child(2){animation-duration:.6s}
+  #snd[aria-pressed="true"] .b i:nth-child(3){animation-duration:1.1s}
+  #snd[aria-pressed="true"] .b i:nth-child(4){animation-duration:.75s}
+}
+@media(max-width:480px){#snd span.t{display:none}#snd{padding:10px 12px}}
 </style>
 <script>
 /* rede de seguranca: se algo falhar, mostra o site sem intro/animacoes */
@@ -237,6 +267,7 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
   var h=document.documentElement;
   window.addEventListener('error',function(e){
     if(e&&e.filename&&e.filename.indexOf('gstatic')>-1)return;
+    if(e&&e.message==='Script error.')return;
     h.classList.add('safe');
   });
   setTimeout(function(){if(document.getElementById('intro'))h.classList.add('safe')},12000);
@@ -247,6 +278,7 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
 
 <div id="prog" aria-hidden="true"></div>
 <canvas id="intro" aria-hidden="true"></canvas>
+<button id="snd" type="button" aria-pressed="false" aria-label="Ligar trilha sonora"><span class="b" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="t">Som</span></button>
 <button id="introSkip" type="button">Pular intro</button>
 
 <div class="wrap">
@@ -254,7 +286,7 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
   <a class="logo" href="#top"><span class="red">!</span> RATO<i></i></a>
   <div class="links"><a href="#trabalhos">Projetos</a><a href="#stack">Stack</a><a href="#sobre">Sobre</a><a href="#processo">Processo</a><a href="#playlist">Playlist</a><a href="#contato">Contato</a></div>
   <span class="views" title="Visitas"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span id="view-count">—</span></span>
-  <a class="pill" href="#contato">Vamos conversar</a>
+  <a class="pill" href="#contato">Contato</a>
 </nav>
 
 <header class="hero" id="top">
@@ -264,7 +296,7 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
   <div class="who">
     <h1 class="d"><span>!</span> Rato</h1>
     <div class="role">Programador</div>
-    <p>Eu escrevo código que resolve problema de verdade: bots, hardware e sites, do primeiro commit ao deploy.</p>
+    <p>Faço bot de Discord, mexo em ESP8266 e monto site quando precisa. Tudo sozinho, do primeiro commit até rodar no ar.</p>
     <a class="btn" href="#trabalhos">Ver meus projetos <span aria-hidden="true">↓</span></a>
   </div>
 
@@ -276,13 +308,13 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
     <div class="stat"><b>IoT</b><span>C++,<br>ESP8266</span></div>
     <div class="stat"><b>Web</b><span>HTML,<br>CSS, JS</span></div>
   </div>
-  <div class="scroll"><span class="play" aria-hidden="true">▶</span><span class="label">Role pra ver mais</span></div>
+  <div class="scroll"><span class="play" aria-hidden="true">▶</span><span class="label">Desce aí</span></div>
 </header>
 
 <section id="trabalhos">
   <div class="head">
-    <div><h2 class="d">Projetos que<br><span class="red">funcionam.</span></h2></div>
-    <a class="pill" href="#contato">Ver todos →</a>
+    <div><h2 class="d">O que eu <span class="red">já fiz.</span></h2></div>
+    <a class="pill" href="https://github.com/ratao21936?tab=repositories" target="_blank" rel="noopener">Ver no GitHub ↗</a>
   </div>
   <div class="tabs" role="group" aria-label="Filtrar projetos">
     <button data-f="all" aria-pressed="true">Todos</button>
@@ -366,7 +398,7 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
           <rect x="30" y="260" width="200" height="8" rx="4" fill="#2a1d21"/><rect x="30" y="278" width="140" height="8" rx="4" fill="#2a1d21"/>
         </g>
       </svg>
-      <span class="yr">Em breve</span><span class="tag">Web &middot; Seu projeto aqui</span><h3>Pr&#243;ximo projeto</h3><p>Substitua este cart&#227;o por um trabalho novo.</p></a>
+      <span class="yr">Aberto</span><span class="tag">Web &middot; Sob encomenda</span><h3>Tem uma ideia?</h3><p>Bot, site ou algo com fio e solda. Me chama que a gente v&#234; se cabe.</p></a>
   </div>
 </section>
 
@@ -374,8 +406,8 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
   <div class="awards">
     <div>
       
-      <h2 class="d" style="font-size:clamp(44px,6.5vw,86px);margin:10px 0 0">O código.<br><span class="red">A stack.</span></h2>
-      <p>Eu uso a ferramenta certa pro problema: Python pra bots, C++ pra hardware e web pra interface.</p>
+      <h2 class="d" style="font-size:clamp(44px,6.5vw,86px);margin:10px 0 0">O que eu <span class="red">uso.</span></h2>
+      <p>Python quando é bot, C++ quando tem placa na mesa, HTML/CSS/JS quando alguém precisa ver a coisa na tela.</p>
     </div>
     <ul class="list">
       <li><div><b>Python</b><em>discord.py, asyncio, aiosqlite</em></div><span class="y">Bots</span></li>
@@ -390,8 +422,8 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
   <div class="about">
     <div>
       
-      <h2 class="d" style="font-size:clamp(44px,6.5vw,86px);margin:10px 0 0">Não é só código.<br>É resolver <span class="red">de verdade.</span></h2>
-      <p class="txt">Eu sou o Rato, programador. Construo bots, projetos de hardware com ESP8266 e sites, sempre com o mesmo cuidado: entender o problema, escrever código limpo e entregar algo que funciona.</p>
+      <h2 class="d" style="font-size:clamp(44px,6.5vw,86px);margin:10px 0 0">Quem <span class="red">sou eu.</span></h2>
+      <p class="txt">Sou o Rato. Comecei fazendo bot pra servidor de Discord e fui parar em fita de LED com NFC e site de página única. Gosto de entender o problema antes de abrir o editor, e de testar de verdade antes de dizer que terminou.</p>
       <div class="skills">
         <div><h4>Foco</h4><ul><li>Bots e automação</li><li>IoT e eletrônica</li><li>Sites e interfaces</li></ul></div>
         <div><h4>Ferramentas</h4><ul><li>Python · discord.py</li><li>C++ · Arduino IDE</li><li>HTML · CSS · JS · Git</li></ul></div>
@@ -400,10 +432,10 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
     <div class="quote"><q>Hardware a gente chuta e software a gente xinga.</q><span>— Rato</span></div>
   </div>
   <div class="steps" id="processo">
-    <div class="step"><div class="k">ETAPA 1</div><h5>O problema</h5><p>Entender o que precisa ser resolvido e pra quem.</p></div>
-    <div class="step"><div class="k">ETAPA 2</div><h5>O plano</h5><p>Escolher a ferramenta e desenhar a estrutura antes de codar.</p></div>
-    <div class="step"><div class="k">ETAPA 3</div><h5>O código</h5><p>Escrever, testar e refinar até ficar limpo e rápido.</p></div>
-    <div class="step"><div class="k">ETAPA 4</div><h5>O deploy</h5><p>Colocar no ar e acompanhar até rodar sem susto.</p></div>
+    <div class="step"><div class="k">ETAPA 1</div><h5>O problema</h5><p>Conversar e entender o que a pessoa realmente precisa.</p></div>
+    <div class="step"><div class="k">ETAPA 2</div><h5>O plano</h5><p>Rabiscar a estrutura e escolher a ferramenta antes de codar.</p></div>
+    <div class="step"><div class="k">ETAPA 3</div><h5>O código</h5><p>Escrever, quebrar, consertar e repetir até parar de quebrar.</p></div>
+    <div class="step"><div class="k">ETAPA 4</div><h5>O deploy</h5><p>Colocar no ar e ficar de olho nos primeiros dias.</p></div>
   </div>
 </section>
 
@@ -411,8 +443,8 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
   <div class="music">
     <div>
       
-      <h2 class="d">Um pouco de música.<br><span class="red">Muito código.</span></h2>
-      <p>Eu programo ouvindo música o tempo todo. Essa é a playlist que fica tocando enquanto o código sai.</p>
+      <h2 class="d">Trilha<br><span class="red">sonora.</span></h2>
+      <p>Não consigo programar em silêncio. É essa playlist que fica rodando enquanto eu depuro.</p>
       <a class="btn" href="https://open.spotify.com/playlist/4gZ8YD30fBXsyRHwixnHNV" target="_blank" rel="noopener">Ouvir no Spotify <span aria-hidden="true">↗</span></a>
     </div>
     <div class="player">
@@ -429,17 +461,17 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
 
 <section class="contact" id="contato">
   
-  <h2 class="d">Vamos<br>trabalhar <span>juntos.</span></h2>
+  <h2 class="d">Fala<br>comigo<span>.</span></h2>
   <div class="row">
     <div>
-      <div class="mail"><small>E-mail</small>mc.ratao21936@gmail.com</div>
+      <div class="mail"><small>E-mail</small><a href="mailto:mc.ratao21936@gmail.com">mc.ratao21936@gmail.com</a></div>
       <div class="socials">
-        <a class="pill" href="https://github.com/ratao21936" target="_blank" rel="noopener">GitHub</a>
-        <a class="pill" href="https://www.tiktok.com/@rato21936" target="_blank" rel="noopener">TikTok</a>
-        <a class="pill" href="https://discord.com/users/1231281182948196430" target="_blank" rel="noopener">Discord</a>
-        <a class="pill" href="https://discord.gg/NsQ4nv4wUG" target="_blank" rel="noopener">Zen Community</a>
-        <a class="pill" href="https://www.roblox.com/users/1600058075/profile" target="_blank" rel="noopener">Roblox</a>
-        <a class="pill" href="https://open.spotify.com/user/31j2fkrmrvfsnolxfnntwxxutbge" target="_blank" rel="noopener">Spotify</a>
+        <a class="pill" href="https://github.com/ratao21936" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>GitHub</a>
+        <a class="pill" href="https://www.tiktok.com/@rato21936" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><polygon points="10 9 16 12 10 15"/></svg>TikTok</a>
+        <a class="pill" href="https://discord.com/users/1231281182948196430" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6.2A8 8 0 1 1 21 12z"/></svg>Discord</a>
+        <a class="pill" href="https://discord.gg/NsQ4nv4wUG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Zen Community</a>
+        <a class="pill" href="https://www.roblox.com/users/1600058075/profile" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>Roblox</a>
+        <a class="pill" href="https://open.spotify.com/user/31j2fkrmrvfsnolxfnntwxxutbge" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M3 14h3a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2zM21 14h-3a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h1a2 2 0 0 0 2-2z"/></svg>Spotify</a>
       </div>
     </div>
     <div class="fe">Faça<br>funcionar.</div>
@@ -454,8 +486,8 @@ html.safe .big,html.safe .photo,html.safe .who>*{animation:none!important;opacit
 <footer><span>© 2026 ! Rato. Todos os direitos reservados.</span><a href="#top">Voltar ao topo ↑</a></footer>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js" crossorigin="anonymous"></script>
 <script>
 var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
@@ -554,8 +586,9 @@ var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)
 (function(){
   var cv=document.getElementById('intro'),skip=document.getElementById('introSkip'),root=document.documentElement;
   if(!cv)return;
+  var seen=false;try{seen=sessionStorage.getItem('rato_intro')==='1';sessionStorage.setItem('rato_intro','1')}catch(e){}
+  if(seen){cv.remove();skip.remove();root.classList.remove('intro-on');return}
   function kill(){try{cv.remove();skip.remove()}catch(e){}root.classList.remove('intro-on');root.style.overflow=''}
-  if(RM){kill();return}
   var ctx=cv.getContext('2d');if(!ctx){kill();return}
   root.classList.add('intro-on');root.style.overflow='hidden';
   var dpr=Math.min(window.devicePixelRatio||1,2),W=0,H=0,CW=9,CH=14,ended=false,raf=0,T0=0;
@@ -586,7 +619,8 @@ var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)
   var COL={edge:'#fff1ee',pale:'#5a474a',bright:'#ff6a5e',mid:'#f0322f',dark:'#a3181b',dim:'#3a1a1f'};
   var B={edge:[],pale:[],bright:[],mid:[],dark:[],dim:[]};
   var ORDER=['dim','pale','dark','mid','bright','edge'];
-  function frame(now){
+  function frame(now){try{frame0(now)}catch(err){try{console.error('intro:',err)}catch(e2){}end()}}
+  function frame0(now){
     if(ended)return;
     if(!T0)T0=now;
     var t=now-T0;
@@ -670,6 +704,127 @@ var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)
     raf=requestAnimationFrame(frame);
   }
   raf=requestAnimationFrame(frame);
+})();
+</script>
+
+
+<script>
+/* trilha sonora gerada no navegador (Web Audio), sem arquivo de audio */
+(function(){
+  var btn=document.getElementById('snd'),AC=window.AudioContext||window.webkitAudioContext;
+  if(!btn)return;
+  if(!AC){btn.remove();return}
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+  var ctx,master,send,noise,timer=0,nextT=0,step=0,on=false,armed=false;
+  var S=60/84/4;
+  var ROOT=[45,41,48,43];
+  var PAD=[[57,60,64],[57,60,65],[55,60,64],[55,59,62]];
+  var ARP=[0,1,2,1,2,1,0,1];
+  function mtof(m){return 440*Math.pow(2,(m-69)/12)}
+  function setup(){
+    ctx=new AC();
+    master=ctx.createGain();master.gain.value=0;
+    var comp=ctx.createDynamicsCompressor();
+    master.connect(comp);comp.connect(ctx.destination);
+    send=ctx.createGain();send.gain.value=0.5;
+    var dl=ctx.createDelay(1);dl.delayTime.value=S*3;
+    var fb=ctx.createGain();fb.gain.value=0.38;
+    var lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2400;
+    send.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(master);
+    var len=ctx.sampleRate,buf=ctx.createBuffer(1,len,ctx.sampleRate),d=buf.getChannelData(0);
+    for(var i=0;i<len;i++)d[i]=Math.random()*2-1;
+    noise=buf;
+  }
+  function tone(type,f,t,dur,vol,att,cut,wet,det){
+    var o=ctx.createOscillator(),g=ctx.createGain(),fl=ctx.createBiquadFilter();
+    o.type=type;o.frequency.value=f;if(det)o.detune.value=det;
+    fl.type='lowpass';fl.frequency.value=cut;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.linearRampToValueAtTime(vol,t+att);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.connect(fl);fl.connect(g);g.connect(master);
+    if(wet){var w=ctx.createGain();w.gain.value=wet;g.connect(w);w.connect(send)}
+    o.start(t);o.stop(t+dur+0.05);
+  }
+  function kick(t){
+    var o=ctx.createOscillator(),g=ctx.createGain();
+    o.frequency.setValueAtTime(120,t);o.frequency.exponentialRampToValueAtTime(42,t+0.14);
+    g.gain.setValueAtTime(0.5,t);g.gain.exponentialRampToValueAtTime(0.0001,t+0.28);
+    o.connect(g);g.connect(master);o.start(t);o.stop(t+0.3);
+  }
+  function hit(t,hp,vol,dur){
+    var n=ctx.createBufferSource(),g=ctx.createGain(),f=ctx.createBiquadFilter();
+    n.buffer=noise;f.type='highpass';f.frequency.value=hp;
+    g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    n.connect(f);f.connect(g);g.connect(master);n.start(t,Math.random()*0.5);n.stop(t+dur+0.02);
+  }
+  function play(st,t){
+    var bar=(st>>4)&3,k=st&15,i;
+    if(k===0){
+      var ch=PAD[bar],bl=S*16;
+      for(i=0;i<ch.length;i++){
+        tone('sawtooth',mtof(ch[i]),t,bl,0.045,1.2,900,0.35,-8);
+        tone('sawtooth',mtof(ch[i]),t,bl,0.045,1.2,900,0.35,8);
+      }
+    }
+    if(k===0||k===6||k===10){
+      var r=ROOT[bar]+(k===10&&bar%2?12:0);
+      tone('sawtooth',mtof(r),t,S*3,0.16,0.01,420,0,0);
+      tone('sine',mtof(r),t,S*3,0.22,0.01,300,0,0);
+    }
+    if(k%2===0){
+      var c=PAD[bar],n=c[ARP[(k>>1)%ARP.length]]+12+((st>>5)&1?12:0);
+      tone('triangle',mtof(n),t,S*2.2,0.07,0.005,3200,0.6,0);
+    }
+    if(k===0||k===8)kick(t);
+    if(k===4||k===12)hit(t,1400,0.07,0.16);
+    if(k%2===1)hit(t,7000,0.025,0.05);
+  }
+  function tick(){
+    while(nextT<ctx.currentTime+0.25){play(step,nextT);nextT+=S;step=(step+1)%64}
+  }
+  function start(){
+    if(!ctx)setup();
+    var go=function(){
+      if(on)return;on=true;
+      nextT=ctx.currentTime+0.1;step=0;
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value,ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0.5,ctx.currentTime+2.5);
+      clearInterval(timer);timer=setInterval(tick,60);tick();
+      paint();
+    };
+    if(ctx.state==='suspended')ctx.resume().then(go,function(){});else go();
+  }
+  function stop(){
+    if(!on)return;on=false;clearInterval(timer);
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.setValueAtTime(master.gain.value,ctx.currentTime);
+    master.gain.linearRampToValueAtTime(0,ctx.currentTime+0.5);
+    setTimeout(function(){if(!on&&ctx&&ctx.state==='running')ctx.suspend()},600);
+    paint();
+  }
+  function paint(){
+    btn.setAttribute('aria-pressed',String(on));
+    btn.setAttribute('aria-label',on?'Desligar trilha sonora':'Ligar trilha sonora');
+  }
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    if(on){stop();store('rato_som','off')}else{start();store('rato_som','on')}
+  });
+  function firstGesture(e){
+    if(armed)return;
+    if(e&&e.target&&e.target.closest&&e.target.closest('#snd'))return;
+    armed=true;
+    ['pointerdown','keydown','touchend'].forEach(function(n){document.removeEventListener(n,firstGesture,true)});
+    if(store('rato_som')!=='off')start();
+  }
+  ['pointerdown','keydown','touchend'].forEach(function(n){document.addEventListener(n,firstGesture,true)});
+  document.addEventListener('visibilitychange',function(){
+    if(!ctx||!on)return;
+    if(document.hidden){clearInterval(timer);ctx.suspend()}
+    else ctx.resume().then(function(){nextT=ctx.currentTime+0.1;timer=setInterval(tick,60)},function(){});
+  });
 })();
 </script>
 
