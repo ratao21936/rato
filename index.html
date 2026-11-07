@@ -816,10 +816,14 @@ var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)
     if(armed)return;
     if(e&&e.target&&e.target.closest&&e.target.closest('#snd'))return;
     armed=true;
-    ['pointerdown','keydown','touchend'].forEach(function(n){document.removeEventListener(n,firstGesture,true)});
+    ['pointerdown','keydown','touchend','click'].forEach(function(n){document.removeEventListener(n,firstGesture,true)});
     if(store('rato_som')!=='off')start();
   }
-  ['pointerdown','keydown','touchend'].forEach(function(n){document.addEventListener(n,firstGesture,true)});
+  ['pointerdown','keydown','touchend','click'].forEach(function(n){document.addEventListener(n,firstGesture,true)});
+  /* tenta iniciar sozinho; se o navegador bloquear, o resume() fica pendente e destrava no primeiro gesto */
+  if(store('rato_som')!=='off'){
+    try{start()}catch(e){}
+  }
   document.addEventListener('visibilitychange',function(){
     if(!ctx||!on)return;
     if(document.hidden){clearInterval(timer);ctx.suspend()}
